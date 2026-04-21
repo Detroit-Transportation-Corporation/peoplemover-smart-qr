@@ -4,155 +4,586 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nearest People Mover Station</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --magenta: #EC008C;
+      --cyan: #00AEEF;
+      --purple: #92278F;
+      --blue: #006DB8;
+      --indigo: #262262;
+      --yellow: #FFDE17;
+      --white: #FFFFFF;
+      --light-bg: #f7f7fb;
+      --text-dark: #1f1f2e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 20px;
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      color: var(--white);
+      background:
+        linear-gradient(135deg, rgba(0,109,184,.92), rgba(146,39,143,.90) 55%, rgba(236,0,140,.88)),
+        linear-gradient(180deg, var(--blue), var(--purple));
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .alert-banner {
+      background: #c62828;
+      color: var(--white);
+      border-radius: 18px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+    }
+
+    .alert-banner strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .alert-banner p {
+      margin: 0;
+      color: var(--white);
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(6px);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+    }
+
+    .hero-bg-logo {
+      position: absolute;
+      right: -10px;
+      top: 10px;
+      width: 140px;
+      max-width: 35%;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero > *:not(.hero-bg-logo) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.8rem;
+      color: var(--yellow);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.02;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.92);
+      max-width: 560px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    button {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      background: var(--yellow);
+      color: var(--indigo);
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 14px 22px;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(38,34,98,0.22);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(38,34,98,0.28);
+    }
+
+    #status {
+      margin: 10px 0 0;
+      min-height: 1.5em;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .panel {
+      margin-top: 24px;
+      background: var(--white);
+      color: var(--text-dark);
+      border-radius: 22px;
+      padding: 22px 20px;
+      box-shadow: 0 16px 40px rgba(16, 24, 40, 0.12);
+    }
+
+    .panel h2 {
+      margin: 0 0 8px;
+      color: var(--indigo);
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .panel p {
+      margin: 0 0 16px;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      color: #4a4a63;
       line-height: 1.5;
     }
-    button {
-      font-size: 1rem;
-      padding: 12px 18px;
-      cursor: pointer;
-    }
-    #status {
-      margin-top: 16px;
-      font-weight: bold;
-    }
+
     .manual-links {
-      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
     }
+
     .manual-links a {
-      display: block;
-      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      padding: 8px 10px;
+      min-height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.92rem;
+      line-height: 1.15;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
+
+    .manual-links a.closed-station {
+      background: #cfcfd6;
+      color: #666a73;
+      box-shadow: none;
+      pointer-events: none;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .manual-links a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.14);
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .info-panel h2 {
+      margin: 0 0 10px;
+      color: var(--indigo);
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .info-panel p {
+      margin: 0 0 14px;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      color: #4a4a63;
+      line-height: 1.5;
+    }
+
+    .info-panel a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .info-panel a:hover {
+      text-decoration: underline;
+    }
+
+    .info-actions {
+      margin-top: 8px;
+    }
+
+    .website-button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 14px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: var(--white) !important;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .website-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.14);
+      text-decoration: none !important;
+    }
+
+    .hours-list {
+      margin: 0;
+      padding-left: 18px;
+      color: #4a4a63;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 20px 14px 36px;
+      }
+
+      .hero {
+        padding: 24px 18px;
+        border-radius: 20px;
+      }
+
+      .panel {
+        padding: 18px 16px;
+        border-radius: 18px;
+      }
+
+      .manual-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .hero-bg-logo {
+        width: 110px;
+        max-width: 32%;
+        right: -8px;
+        top: 8px;
+        opacity: 0.08;
+      }
+    }
+
+    .hours-card {
+  margin-top: 18px;
+  background: #f6f7fb;
+  border: 1px solid #e4e7f0;
+  border-radius: 18px;
+  padding: 16px 18px;
+}
+
+.hours-card h3 {
+  margin: 0 0 12px;
+  color: var(--indigo);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.hours-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  align-items: start;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  color: #4a4a63;
+}
+
+.hours-day {
+  font-weight: 700;
+  color: var(--indigo);
+  white-space: nowrap;
+}
+
+.hours-time {
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .hours-card {
+    padding: 14px 14px;
+  }
+
+  .hours-grid {
+    grid-template-columns: 1fr;
+    gap: 4px 0;
+  }
+
+  .hours-day {
+    margin-top: 8px;
+  }
+
+  .hours-day:first-child {
+    margin-top: 0;
+  }
+}
   </style>
 </head>
 <body>
-  <h1>Find the nearest People Mover station</h1>
-  <p>Tap the button below to open walking directions in Google Maps.</p>
+  <div class="page">
+    <div id="serviceBanner"></div>
 
-  <button onclick="findNearest()">Use my location</button>
-  <p id="status"></p>
+    <section class="hero">
+      <img src="dpm-logo-white.png" alt="" class="hero-bg-logo">
+      <div class="eyebrow">Detroit People Mover</div>
+      <h1>Find the Nearest Station</h1>
+      <p class="subtitle">
+        Use your current location to open walking directions to the nearest Detroit People Mover station in Google Maps app or browser.
+      </p>
 
-  <div class="manual-links">
-  <h2>Manual station options</h2>
+      <div class="cta-row">
+        <button onclick="findNearest()">Use My Location</button>
+      </div>
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Times%20Square%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJ_yh_IjEtO4gRQu5zDW_F92I&travelmode=walking" target="_blank">Times Square</a>
+      <p id="status"></p>
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Michigan%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJNQbWrDAtO4gRNuSH1WQLT5o&travelmode=walking" target="_blank">Michigan</a>
+      <div class="footer-note">
+        Start your fun on the Detroit People Mover!
+      </div>
+    </section>
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Fort%2FCass%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJy9JiFTotO4gRL_vmaVIob0Q&travelmode=walking" target="_blank">Fort/Cass</a>
+    <section class="panel">
+      <p>
+        If location access is unavailable, choose a station below to open walking directions.
+      </p>
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Huntington%20Place%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJOR1lkDstO4gRuSrwWiMXhPM&travelmode=walking" target="_blank">Huntington Place</a>
+     <div class="manual-links">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Times%20Square%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJ_yh_IjEtO4gRQu5zDW_F92I&travelmode=walking" target="_blank">Times Square</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Michigan%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJNQbWrDAtO4gRNuSH1WQLT5o&travelmode=walking" target="_blank">Michigan</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Fort%2FCass%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJy9JiFTotO4gRL_vmaVIob0Q&travelmode=walking" target="_blank">Fort/Cass</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Huntington%20Place%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJOR1lkDstO4gRuSrwWiMXhPM&travelmode=walking" target="_blank">Huntington Place</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Water%20Square%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJU-q1pT4tO4gR1KWOCfrkDvw&travelmode=walking" target="_blank">Water Square</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Financial%20District%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJx4yGMiUtO4gRV-Q9Zcf8s4A&travelmode=walking" target="_blank">Financial District</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Millender%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJGaYvVi8tO4gRMfIILo7K4dw&travelmode=walking" target="_blank">Millender Center</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Renaissance%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJE4jyMSYtO4gRwaaqbv_nXTc&travelmode=walking" target="_blank">Renaissance Center</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Bricktown%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJdaoYMiktO4gRdEoBcscFi-c&travelmode=walking" target="_blank">Bricktown</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Greektown%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJk6vBpC4tO4gR4hvCODw8DzI&travelmode=walking" target="_blank">Greektown</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Cadillac%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJpbzAJC4tO4gRSml2vPz-CLw&travelmode=walking" target="_blank">Cadillac Center</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Broadway%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJmXVJIDItO4gRYsWvL43J7M4&travelmode=walking" target="_blank">Broadway</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Grand%20Circus%20Park%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJK0IsxTMtO4gRlD6rgXQvUd4&travelmode=walking" target="_blank">Grand Circus Park</a>
+    </div>
+  </section>
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Water%20Square%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJU-q1pT4tO4gR1KWOCfrkDvw&travelmode=walking" target="_blank">Water Square</a>
+    <section class="panel info-panel">
+      <h2>Need More Help?</h2>
+      <p>
+        For service alerts and more information, visit the
+        <a href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer">Detroit People Mover website</a>.
+      </p>
+      <p>
+        If you need assistance, call the Control Center at
+        <a href="tel:3139630171">313-963-0171</a>.
+      </p>
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Financial%20District%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJx4yGMiUtO4gRV-Q9Zcf8s4A&travelmode=walking" target="_blank">Financial District</a>
+      <div class="info-actions">
+        <a class="website-button" href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer">
+          Visit the People Mover Website
+        </a>
+      </div>
+    </section>
+  </div>
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Millender%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJGaYvVi8tO4gRMfIILo7K4dw&travelmode=walking" target="_blank">Millender Center</a>
+  <script>
+    const systemStatus = {
+      systemClosed: false,
+      serviceAlert: "",
+      closedStations: [],
+      regularHours: [
+      { day: "Monday-Friday", time: "6:30 AM - 12:00 AM" },
+      { day: "Saturday", time: "10:00 AM - 12:00 AM" },
+      { day: "Sunday", time: "10:00 AM - 10:00 PM" }
+    ]
+    };
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Renaissance%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJE4jyMSYtO4gRwaaqbv_nXTc&travelmode=walking" target="_blank">Renaissance Center</a>
+    const stations = [
+      { name: "Times Square", lat: 42.333602, lng: -83.051855, placeId: "ChIJ_yh_IjEtO4gRQu5zDW_F92I", destination: "Times Square People Mover Station, Detroit, MI" },
+      { name: "Michigan", lat: 42.331425, lng: -83.052213, placeId: "ChIJNQbWrDAtO4gRNuSH1WQLT5o", destination: "Michigan People Mover Station, Detroit, MI" },
+      { name: "Fort/Cass", lat: 42.329361, lng: -83.050941, placeId: "ChIJy9JiFTotO4gRL_vmaVIob0Q", destination: "Fort/Cass People Mover Station, Detroit, MI" },
+      { name: "Huntington Place", lat: 42.327556, lng: -83.049583, placeId: "ChIJOR1lkDstO4gRuSrwWiMXhPM", destination: "Huntington Place People Mover Station, Detroit, MI" },
+      { name: "Water Square", lat: 42.32515186, lng: -83.05253712, placeId: "ChIJU-q1pT4tO4gR1KWOCfrkDvw", destination: "Water Square People Mover Station, Detroit, MI" },
+      { name: "Financial District", lat: 42.32870502, lng: -83.04660602, placeId: "ChIJx4yGMiUtO4gRV-Q9Zcf8s4A", destination: "Financial District People Mover Station, Detroit, MI" },
+      { name: "Millender Center", lat: 42.33015613, lng: -83.04194403, placeId: "ChIJGaYvVi8tO4gRMfIILo7K4dw", destination: "Millender Center People Mover Station, Detroit, MI" },
+      { name: "Renaissance Center", lat: 42.33020612, lng: -83.0399496, placeId: "ChIJE4jyMSYtO4gRwaaqbv_nXTc", destination: "Renaissance Center People Mover Station, Detroit, MI" },
+      { name: "Bricktown", lat: 42.33334704, lng: -83.04122223, placeId: "ChIJdaoYMiktO4gRdEoBcscFi-c", destination: "Bricktown People Mover Station, Detroit, MI" },
+      { name: "Greektown", lat: 42.33469767, lng: -83.04229221, placeId: "ChIJk6vBpC4tO4gR4hvCODw8DzI", destination: "Greektown People Mover Station, Detroit, MI" },
+      { name: "Cadillac Center", lat: 42.33366454, lng: -83.04630268, placeId: "ChIJpbzAJC4tO4gRSml2vPz-CLw", destination: "Cadillac Center People Mover Station, Detroit, MI" },
+      { name: "Broadway", lat: 42.33553876, lng: -83.04815605, placeId: "ChIJmXVJIDItO4gRYsWvL43J7M4", destination: "Broadway People Mover Station, Detroit, MI" },
+      { name: "Grand Circus Park", lat: 42.33580892, lng: -83.05055198, placeId: "ChIJK0IsxTMtO4gRlD6rgXQvUd4", destination: "Grand Circus Park People Mover Station, Detroit, MI" }
+    ];
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Bricktown%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJdaoYMiktO4gRdEoBcscFi-c&travelmode=walking" target="_blank">Bricktown</a>
+    function distance(lat1, lng1, lat2, lng2) {
+      const toRad = deg => deg * Math.PI / 180;
+      const R = 6371000;
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Greektown%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJk6vBpC4tO4gR4hvCODw8DzI&travelmode=walking" target="_blank">Greektown</a>
+      const phi1 = toRad(lat1);
+      const phi2 = toRad(lat2);
+      const deltaPhi = toRad(lat2 - lat1);
+      const deltaLambda = toRad(lng2 - lng1);
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Cadillac%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJpbzAJC4tO4gRSml2vPz-CLw&travelmode=walking" target="_blank">Cadillac Center</a>
+      const a =
+        Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+        Math.cos(phi1) * Math.cos(phi2) *
+        Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
 
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Broadway%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJmXVJIDItO4gRYsWvL43J7M4&travelmode=walking" target="_blank">Broadway</a>
-
-  <a href="https://www.google.com/maps/dir/?api=1&destination=Grand%20Circus%20Park%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJK0IsxTMtO4gRlD6rgXQvUd4&travelmode=walking" target="_blank">Grand Circus Park</a>
-</div>
-
-<script>
-  const stations = [
-    { name: "Times Square", lat: 42.333602, lng: -83.051855, placeId: "ChIJ_yh_IjEtO4gRQu5zDW_F92I", destination: "Times Square People Mover Station, Detroit, MI" },
-    { name: "Michigan", lat: 42.331425, lng: -83.052213, placeId: "ChIJNQbWrDAtO4gRNuSH1WQLT5o", destination: "Michigan People Mover Station, Detroit, MI" },
-    { name: "Fort Cass", lat: 42.329361, lng: -83.050941, placeId: "ChIJy9JiFTotO4gRL_vmaVIob0Q", destination: "Fort/Cass People Mover Station, Detroit, MI" },
-    { name: "Huntington Place", lat: 42.327556, lng: -83.049583, placeId: "ChIJOR1lkDstO4gRuSrwWiMXhPM", destination: "Huntington Place People Mover Station, Detroit, MI" },
-    { name: "Water Square", lat: 42.32515186, lng: -83.05253712, placeId: "ChIJU-q1pT4tO4gR1KWOCfrkDvw", destination: "Water Square People Mover Station, Detroit, MI" },
-    { name: "Financial District", lat: 42.32870502, lng: -83.04660602, placeId: "ChIJx4yGMiUtO4gRV-Q9Zcf8s4A", destination: "Financial District People Mover Station, Detroit, MI" },
-    { name: "Millender Center", lat: 42.33015613, lng: -83.04194403, placeId: "ChIJGaYvVi8tO4gRMfIILo7K4dw", destination: "Millender Center People Mover Station, Detroit, MI" },
-    { name: "Renaissance Center", lat: 42.33020612, lng: -83.0399496, placeId: "ChIJE4jyMSYtO4gRwaaqbv_nXTc", destination: "Renaissance Center People Mover Station, Detroit, MI" },
-    { name: "Bricktown", lat: 42.33334704, lng: -83.04122223, placeId: "ChIJdaoYMiktO4gRdEoBcscFi-c", destination: "Bricktown People Mover Station, Detroit, MI" },
-    { name: "Greektown", lat: 42.33469767, lng: -83.04229221, placeId: "ChIJk6vBpC4tO4gR4hvCODw8DzI", destination: "Greektown People Mover Station, Detroit, MI" },
-    { name: "Cadillac Center", lat: 42.33366454, lng: -83.04630268, placeId: "ChIJpbzAJC4tO4gRSml2vPz-CLw", destination: "Cadillac Center People Mover Station, Detroit, MI" },
-    { name: "Broadway", lat: 42.33553876, lng: -83.04815605, placeId: "ChIJmXVJIDItO4gRYsWvL43J7M4", destination: "Broadway People Mover Station, Detroit, MI" },
-    { name: "Grand Circus Park", lat: 42.33580892, lng: -83.05055198, placeId: "ChIJK0IsxTMtO4gRlD6rgXQvUd4", destination: "Grand Circus Park People Mover Station, Detroit, MI" }
-  ];
-
-  function distance(lat1, lng1, lat2, lng2) {
-    const toRad = deg => deg * Math.PI / 180;
-    const R = 6371000;
-
-    const phi1 = toRad(lat1);
-    const phi2 = toRad(lat2);
-    const deltaPhi = toRad(lat2 - lat1);
-    const deltaLambda = toRad(lng2 - lng1);
-
-    const a =
-      Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
-      Math.cos(phi1) * Math.cos(phi2) *
-      Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-  }
-
-  function findNearest() {
-    const status = document.getElementById("status");
-    status.textContent = "Getting your location...";
-
-    if (!navigator.geolocation) {
-      status.textContent = "Geolocation is not supported on this device.";
-      return;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      function(position) {
-        const userLat = position.coords.latitude;
-        const userLng = position.coords.longitude;
+    function renderServiceBanner() {
+      const banner = document.getElementById("serviceBanner");
 
-        let nearest = null;
-        let minDist = Infinity;
-
-        for (const station of stations) {
-          const d = distance(userLat, userLng, station.lat, station.lng);
-          if (d < minDist) {
-            minDist = d;
-            nearest = station;
-          }
-        }
-
-        if (!nearest) {
-          status.textContent = "Could not determine nearest station.";
-          return;
-        }
-
-        status.textContent = "Opening walking directions to " + nearest.name + "...";
-
-        const url =
-          "https://www.google.com/maps/dir/?api=1" +
-          "&destination=" + encodeURIComponent(nearest.destination) +
-          "&destination_place_id=" + encodeURIComponent(nearest.placeId) +
-          "&travelmode=walking";
-
-        window.location.href = url;
-      },
-      function(error) {
-        status.textContent = "Location access was denied or unavailable. Use one of the manual station links below.";
-        console.log(error);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0
+      if (!systemStatus.serviceAlert) {
+        banner.innerHTML = "";
+        return;
       }
-    );
+
+      banner.innerHTML = `
+        <div class="alert-banner">
+          <strong>Service Alert</strong>
+          <p>${systemStatus.serviceAlert}</p>
+        </div>
+      `;
+    }
+
+    function applyClosedStations() {
+    const links = document.querySelectorAll(".manual-links a");
+
+    links.forEach(link => {
+      const stationName = link.textContent.trim();
+      if (systemStatus.closedStations.includes(stationName)) {
+        link.classList.add("closed-station");
+        link.removeAttribute("href");
+        link.removeAttribute("target");
+      }
+    });
   }
-</script>
+
+    function renderHoursInHelpPanel() {
+  const infoPanel = document.querySelector(".info-panel");
+
+  const hoursHtml = `
+    <div class="hours-card">
+      <h3>Hours of Operation</h3>
+      <div class="hours-grid">
+        ${systemStatus.regularHours.map(item => `
+          <div class="hours-day">${item.day}</div>
+          <div class="hours-time">${item.time}</div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  infoPanel.insertAdjacentHTML("beforeend", hoursHtml);
+}
+
+    function findNearest() {
+      const status = document.getElementById("status");
+
+      if (systemStatus.systemClosed) {
+        status.textContent = "The system is currently closed. Please check the website for service updates.";
+        return;
+      }
+
+      status.textContent = "Getting your location...";
+
+      if (!navigator.geolocation) {
+        status.textContent = "Geolocation is not supported on this device.";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          const userLat = position.coords.latitude;
+          const userLng = position.coords.longitude;
+
+          let nearest = null;
+          let minDist = Infinity;
+
+          const availableStations = stations.filter(
+            station => !systemStatus.closedStations.includes(station.name)
+          );
+
+          for (const station of availableStations) {
+            const d = distance(userLat, userLng, station.lat, station.lng);
+            if (d < minDist) {
+              minDist = d;
+              nearest = station;
+            }
+          }
+
+          if (!nearest) {
+            status.textContent = "No open stations are currently available.";
+            return;
+          }
+
+          status.textContent = "Opening walking directions to " + nearest.name + "...";
+
+          const url =
+            "https://www.google.com/maps/dir/?api=1" +
+            "&destination=" + encodeURIComponent(nearest.destination) +
+            "&destination_place_id=" + encodeURIComponent(nearest.placeId) +
+            "&travelmode=walking";
+
+          window.location.href = url;
+        },
+        function(error) {
+          status.textContent = "Location access was denied or unavailable. Use one of the manual station links below.";
+          console.log(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    }
+
+    renderServiceBanner();
+    applyClosedStations();
+    renderHoursInHelpPanel();
+  </script>
 </body>
 </html>
