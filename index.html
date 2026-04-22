@@ -177,6 +177,68 @@
       line-height: 1.5;
     }
 
+    .destination-panel {
+  margin-top: 24px;
+}
+
+.destination-select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #d7dceb;
+  border-radius: 14px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1rem;
+  color: var(--indigo);
+  background: #ffffff;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.destination-result {
+  background: #f6f7fb;
+  border: 1px solid #e4e7f0;
+  border-radius: 18px;
+  padding: 16px 18px;
+}
+
+.destination-result h3 {
+  margin: 0 0 8px;
+  color: var(--indigo);
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.destination-result p {
+  margin: 0 0 10px;
+}
+
+.destination-station {
+  font-weight: 800;
+  color: var(--blue);
+}
+
+.destination-actions {
+  margin-top: 14px;
+}
+
+.destination-button {
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: var(--white) !important;
+  font-weight: 800;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.destination-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.14);
+  text-decoration: none !important;
+}
+
     .manual-links {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -308,6 +370,25 @@
       }
     }
 
+    .map-card {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.map-card h3 {
+  margin-bottom: 6px;
+}
+
+.map-link {
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.map-link:hover {
+  text-decoration: underline;
+}
+
     .hours-card {
   margin-top: 18px;
   background: #f6f7fb;
@@ -431,6 +512,19 @@
   </div>
 </section>
 
+<section class="panel destination-panel">
+  <h2>Going somewhere specific?</h2>
+  <p>
+    Select your destination to what station to get off at.
+  </p>
+
+  <select id="destinationSelect" class="destination-select">
+    <option value="">Choose a destination</option>
+  </select>
+
+  <div id="destinationResult" class="destination-result" style="display: none;"></div>
+</section>
+
     <section class="panel">
       <p>
         If location access is unavailable, choose a station below to open walking directions.
@@ -500,6 +594,99 @@
       { name: "Grand Circus Park", lat: 42.33580892, lng: -83.05055198, placeId: "ChIJK0IsxTMtO4gRlD6rgXQvUd4", destination: "Grand Circus Park People Mover Station, Detroit, MI" }
     ];
 
+const destinations = [
+  {
+    name: "Comerica Park",
+    destinationLat: 42.338356,
+    destinationLng: -83.048134,
+    destinationPlaceId: "ChIJX0K0mzMtO4gRXpDZC0HNsqg",
+    closestStation: "Grand Circus Park",
+    stationLat: 42.33580892,
+    stationLng: -83.05055198,
+    stationPlaceId: "ChIJK0IsxTMtO4gRlD6rgXQvUd4"
+  },
+  {
+    name: "Ford Field",
+    destinationLat: 42.340115,
+    destinationLng: -83.046341,
+    destinationPlaceId: "ChIJt-BCZy0tO4gRtonmr5I3ktQ",
+    closestStation: "Broadway",
+    stationLat: 42.33553876,
+    stationLng: -83.04815605,
+    stationPlaceId: "ChIJmXVJIDItO4gRYsWvL43J7M4"
+  },
+  {
+    name: "Little Caesars Arena",
+    destinationLat: 42.34065,
+    destinationLng: -83.054027,
+    destinationPlaceId: "ChIJCxS_IcvSJIgReEafl2DYD8s",
+    closestStation: "Grand Circus Park",
+    stationLat: 42.33580892,
+    stationLng: -83.05055198,
+    stationPlaceId: "ChIJK0IsxTMtO4gRlD6rgXQvUd4"
+  },
+  {
+    name: "Fox Theatre",
+    destinationLat: 42.3386,
+    destinationLng: -83.052236,
+    destinationPlaceId: "ChIJWfEyfDMtO4gRMVoXtqCDVPI",
+    closestStation: "Grand Circus Park",
+    stationLat: 42.33580892,
+    stationLng: -83.05055198,
+    stationPlaceId: "ChIJK0IsxTMtO4gRlD6rgXQvUd4"
+  },
+  {
+    name: "Detroit Opera House",
+    destinationLat: 42.336291,
+    destinationLng: -83.048672,
+    destinationPlaceId: "ChIJs4AsOzItO4gRHEWzUNXy9FM",
+    closestStation: "Broadway",
+    stationLat: 42.33553876,
+    stationLng: -83.04815605,
+    stationPlaceId: "ChIJmXVJIDItO4gRYsWvL43J7M4"
+  },
+  {
+    name: "Music Hall",
+    destinationLat: 42.337246,
+    destinationLng: -83.045924,
+    destinationPlaceId: "ChIJx8EDmi0tO4gRzlez8tgyFns",
+    closestStation: "Broadway",
+    stationLat: 42.33553876,
+    stationLng: -83.04815605,
+    stationPlaceId: "ChIJmXVJIDItO4gRYsWvL43J7M4"
+  },
+  {
+    name: "Campus Martius Park",
+    destinationLat: 42.331857,
+    destinationLng: -83.046564,
+    destinationPlaceId: "ChIJj_be6i8tO4gRBmKCiJEi1Yw",
+    closestStation: "Cadillac Center",
+    stationLat: 42.33366454,
+    stationLng: -83.04630268,
+    stationPlaceId: "ChIJpbzAJC4tO4gRSml2vPz-CLw"
+  },
+  {
+    name: "Hart Plaza/Riverwalk",
+    destinationLat: 42.327964,
+    destinationLng: -83.045059,
+    destinationPlaceId: "ChIJYTf6WCQtO4gR1owf0fbQvoQ",
+    closestStation: "Financial District",
+    stationLat: 42.32870502,
+    stationLng: -83.04660602,
+    stationPlaceId: "ChIJx4yGMiUtO4gRV-Q9Zcf8s4A"
+  },
+  {
+    name: "Rosa Parks Transit Center",
+    destinationLat: 42.333186,
+    destinationLng: -83.052336,
+    destinationPlaceId: "ChIJsQVsSQAtO4gRNMipHaMJGMY",
+    closestStation: "Times Square",
+    stationLat: 42.333602,
+    stationLng: -83.051855,
+    stationPlaceId: "ChIJ_yh_IjEtO4gRQu5zDW_F92I"
+  }
+];
+
     function distance(lat1, lng1, lat2, lng2) {
       const toRad = deg => deg * Math.PI / 180;
       const R = 6371000;
@@ -561,6 +748,16 @@
       </div>
     </div>
 
+    <div class="hours-card map-card">
+      <h3>System Map</h3>
+      <p class="transit-app-note">
+        View the People Mover System Map.
+        <a class="map-link" href="system-map.pdf" target="_blank" rel="noopener noreferrer">
+          Download the PDF
+        </a>.
+      </p>
+    </div>
+
     <div class="hours-card transit-card">
       <div class="transit-card-content">
         <div class="transit-card-text">
@@ -583,6 +780,57 @@
   `;
 
   infoPanel.insertAdjacentHTML("beforeend", hoursHtml);
+}
+
+function populateDestinationDropdown() {
+  const select = document.getElementById("destinationSelect");
+
+  destinations.forEach((destination, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = destination.name;
+    select.appendChild(option);
+  });
+}
+
+function handleDestinationChange() {
+  const select = document.getElementById("destinationSelect");
+  const resultBox = document.getElementById("destinationResult");
+  const selectedIndex = select.value;
+
+  if (selectedIndex === "") {
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+    return;
+  }
+
+  const selected = destinations[selectedIndex];
+
+  resultBox.innerHTML = `
+    <h3>${selected.name}</h3>
+    <p>Ride the People Mover to: <span class="destination-station">${selected.closestStation}</span></p>
+    <div class="destination-actions">
+      <a class="destination-button" href="#" onclick="openDestinationWalk(${selectedIndex}); return false;">
+        Walk from ${selected.closestStation} to destination
+      </a>
+    </div>
+  `;
+
+  resultBox.style.display = "block";
+}
+
+function openDestinationWalk(index) {
+  const selected = destinations[index];
+
+  const url =
+    "https://www.google.com/maps/dir/?api=1" +
+    "&origin=" + encodeURIComponent(selected.closestStation + " People Mover Station, Detroit, MI") +
+    "&origin_place_id=" + encodeURIComponent(selected.stationPlaceId) +
+    "&destination=" + encodeURIComponent(selected.name + ", Detroit, MI") +
+    "&destination_place_id=" + encodeURIComponent(selected.destinationPlaceId) +
+    "&travelmode=walking";
+
+  window.location.href = url;
 }
 
     function findNearest() {
@@ -647,9 +895,12 @@
       );
     }
 
-    renderServiceBanner();
-    applyClosedStations();
-    renderHoursInHelpPanel();
+   renderServiceBanner();
+   applyClosedStations();
+   renderHoursInHelpPanel();
+   populateDestinationDropdown();
+   
+   document.getElementById("destinationSelect").addEventListener("change", handleDestinationChange);
   </script>
 </body>
 </html>
