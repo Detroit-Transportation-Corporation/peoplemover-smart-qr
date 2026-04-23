@@ -796,15 +796,17 @@ function populateDestinationDropdown() {
 }
 
 function handleDestinationChange() {
+  const select = document.getElementById("destinationSelect");
+  const resultBox = document.getElementById("destinationResult");
   const selectedName = select.value;
 
-if (selectedName === "") {
-  resultBox.style.display = "none";
-  resultBox.innerHTML = "";
-  return;
-}
+  if (selectedName === "") {
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+    return;
+  }
 
-const selected = destinations.find(destination => destination.name === selectedName);
+  const selected = destinations.find(destination => destination.name === selectedName);
 
   resultBox.innerHTML = `
     <h3>${selected.name}</h3>
