@@ -66,16 +66,31 @@
       line-height: 1.4;
     }
 
+    .alert-banner {
+  animation: alertReveal 0.4s ease-out;
+}
+
+@keyframes alertReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
     .hero {
-      position: relative;
-      overflow: hidden;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.18);
-      backdrop-filter: blur(6px);
-      border-radius: 24px;
-      padding: 32px 24px;
-      box-shadow: 0 18px 50px rgba(0,0,0,0.18);
-    }
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(6px);
+  border-radius: 24px;
+  padding: 20px 24px 32px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+}
 
     .hero-bg-logo {
       position: absolute;
@@ -119,13 +134,94 @@
     }
 
     .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 14px;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
 
+.language-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.language-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.92);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 2px 18px 2px 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='white' d='M0 0l5 6 5-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 10px 6px;
+}
+
+.language-select:focus {
+  outline: none;
+}
+
+.language-select option {
+  color: #111;
+  background: #fff;
+}
+
+html[dir="rtl"] .hero,
+html[dir="rtl"] .panel,
+html[dir="rtl"] .subtitle,
+html[dir="rtl"] .panel p,
+html[dir="rtl"] .alert-banner p,
+html[dir="rtl"] .footer-note {
+  text-align: right;
+}
+
+html[dir="rtl"] .cta-row {
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] .location-access-note,
+html[dir="rtl"] .destination-access-note {
+  text-align: right;
+  border-left: none;
+  border-right: 4px solid var(--yellow);
+}
+.accessibility-alert {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #eef8ff;
+  border-left: 4px solid var(--cyan);
+  color: var(--indigo);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.location-accessibility-alert {
+  margin: 12px auto 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0, 174, 239, 0.18);
+  border-left: 4px solid var(--cyan);
+  color: var(--white);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.5;
+  text-align: left;
+  max-width: 540px;
+}
+html[dir="rtl"] .language-wrap {
+  justify-content: flex-start;
+}
     button {
       appearance: none;
       border: none;
@@ -147,12 +243,126 @@
     }
 
     #status {
-      margin: 10px 0 0;
-      min-height: 1.5em;
-      font-family: 'Roboto Condensed', Arial, sans-serif;
-      font-size: 1rem;
-      color: var(--white);
-    }
+  margin: 4px 0 0;
+  min-height: 1.2em;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  font-size: 1rem;
+  color: var(--white);
+}
+
+.location-result {
+  display: none;
+  margin-top: 18px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 18px;
+  padding: 18px 16px;
+  color: var(--white);
+}
+
+.location-result {
+  display: none;
+  margin-top: 4px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 18px;
+  padding: 18px 16px;
+  color: var(--white);
+  text-align: center;
+}
+
+.location-result h3 {
+  margin: 0 0 12px;
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--white);
+  text-align: center;
+}
+
+.location-result p {
+  margin: 0 0 10px;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  color: rgba(255,255,255,0.95);
+  line-height: 1.5;
+}
+
+.location-station-wrap {
+  margin: 8px 0 14px;
+  text-align: center;
+}
+
+.location-station-badge {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.98);
+  color: var(--indigo);
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 800;
+  font-size: 1.22rem;
+  line-height: 1.2;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.16);
+}
+
+.location-access-note {
+  margin: 12px auto 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 222, 23, 0.18);
+  border-left: 4px solid var(--yellow);
+  color: var(--white);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.5;
+  text-align: left;
+  max-width: 540px;
+}
+
+.location-actions {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.location-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  text-decoration: none;
+  padding: 13px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: var(--white) !important;
+  font-weight: 800;
+  box-shadow: 0 0 0 rgba(0, 174, 239, 0), 0 8px 18px rgba(38,34,98,0.24);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: buttonGlow 1.8s ease-in-out infinite;
+}
+
+.location-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 0 6px rgba(0, 174, 239, 0.20), 0 14px 28px rgba(38,34,98,0.30);
+  text-decoration: none !important;
+}
+
+.location-button-main {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+@keyframes buttonGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 174, 239, 0), 0 8px 18px rgba(38,34,98,0.24);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(0, 174, 239, 0.22), 0 12px 24px rgba(38,34,98,0.30);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 174, 239, 0), 0 8px 18px rgba(38,34,98,0.24);
+  }
+}
 
     .panel {
       margin-top: 24px;
@@ -194,6 +404,17 @@
   margin-bottom: 16px;
 }
 
+.destination-select,
+.manual-select {
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.destination-select:focus {
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(146, 39, 143, 0.14);
+}
+
 .destination-result {
   background: #f6f7fb;
   border: 1px solid #e4e7f0;
@@ -221,6 +442,17 @@
   margin-top: 14px;
 }
 
+.destination-access-note {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fdf4d8;
+  border-left: 4px solid var(--yellow);
+  color: var(--indigo);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.5;
+}
+
 .destination-button {
   display: inline-block;
   text-decoration: none;
@@ -229,13 +461,14 @@
   background: linear-gradient(135deg, var(--blue), var(--purple));
   color: var(--white) !important;
   font-weight: 800;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.10);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 0 0 rgba(0, 174, 239, 0), 0 8px 18px rgba(38,34,98,0.24);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: buttonGlow 1.8s ease-in-out infinite;
 }
 
 .destination-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.14);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 0 6px rgba(0, 174, 239, 0.20), 0 14px 28px rgba(38,34,98,0.30);
   text-decoration: none !important;
 }
 
@@ -276,6 +509,32 @@
       transform: translateY(-2px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.14);
     }
+
+    .manual-links button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: none;
+  text-decoration: none;
+  padding: 8px 10px;
+  min-height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.15;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.manual-links button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.14);
+}
 
     .footer-note {
       margin-top: 18px;
@@ -405,12 +664,18 @@
 }
 
 .hours-grid {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 8px 16px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   font-family: 'Roboto Condensed', Arial, sans-serif;
   color: #4a4a63;
+}
+
+.hours-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
 }
 
 .hours-day {
@@ -420,7 +685,16 @@
 }
 
 .hours-time {
-  text-align: left;
+  white-space: nowrap;
+}
+
+html[dir="rtl"] .hours-row {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+html[dir="rtl"] .hours-card {
+  text-align: right;
 }
 
 @media (max-width: 640px) {
@@ -487,6 +761,41 @@
     justify-content: flex-start;
   }
 }
+
+.site-footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #f7f7fb;
+  padding-bottom: 16px;
+}
+
+.footer-link {
+  color: #f7f7fb;
+  text-decoration: underline;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: #ffde17;
+}
+
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.location-result.is-visible,
+.destination-result.is-visible,
+.manual-result.is-visible {
+  animation: cardReveal 0.35s ease-out;
+}
   </style>
 </head>
 <body>
@@ -495,81 +804,99 @@
 
    <section class="hero">
   <img src="dpm-logo-white.png" alt="" class="hero-bg-logo">
-  <div class="eyebrow">Detroit People Mover</div>
-  <h1>Find the Nearest Station</h1>
-  <p class="subtitle">
-    Use your current location to open walking directions to the nearest Detroit People Mover station in Google Maps app or browser.
-  </p>
+  <div class="language-wrap">
+  <select id="languageSelect" class="language-select" aria-label="Select language">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="ar">العربية</option>
+    <option value="bn">বাংলা</option>
+  </select>
+</div>
 
-  <div class="cta-row">
-    <button onclick="findNearest()">Use My Location</button>
-  </div>
+<div class="eyebrow" translate="no">Detroit People Mover</div>
+<h1 data-i18n="heroTitle">Find the Nearest Station</h1>
+<p class="subtitle" data-i18n="heroSubtitle">
+  Use your current location to open walking directions to the nearest Detroit People Mover station in Google Maps app or browser.
+</p>
+
+<div class="cta-row">
+  <button id="useLocationButton" onclick="findNearest()">Use My Location</button>
+</div>
 
   <p id="status"></p>
 
-  <div class="footer-note">
-    Start your fun on the People Mover! Always FREE to ride.
-  </div>
+<div id="locationResult" class="location-result"></div>
+
+<div class="footer-note" data-i18n="footerNote">
+  Start your fun on the People Mover! Always FREE to ride.
+</div>
 </section>
 
 <section class="panel destination-panel">
-  <h2>Going somewhere specific?</h2>
-  <p>
-    Once you're on the People Mover, use this guide to find the right station for your destination.
+  <h2 data-i18n="destinationHeading">Going somewhere specific?</h2>
+  <p data-i18n="destinationIntro">
+    Once you're on the People Mover, use this guide to find the right station for your destination.
   </p>
 
   <select id="destinationSelect" class="destination-select">
-    <option value="">Choose a destination</option>
+    <option value="" data-i18n="destinationPlaceholder">Choose a destination</option>
   </select>
 
   <div id="destinationResult" class="destination-result" style="display: none;"></div>
 </section>
 
     <section class="panel">
-      <p>
-        If location access is unavailable, choose a station below to open walking directions.
-      </p>
+  <p data-i18n="manualIntro">
+    If location access is unavailable, choose a station below to open walking directions.
+  </p>
 
-     <div class="manual-links">
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Times%20Square%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJ_yh_IjEtO4gRQu5zDW_F92I&travelmode=walking" target="_blank">Times Square</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Michigan%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJNQbWrDAtO4gRNuSH1WQLT5o&travelmode=walking" target="_blank">Michigan</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Fort%2FCass%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJy9JiFTotO4gRL_vmaVIob0Q&travelmode=walking" target="_blank">Fort/Cass</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Huntington%20Place%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJOR1lkDstO4gRuSrwWiMXhPM&travelmode=walking" target="_blank">Huntington Place</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Water%20Square%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJU-q1pT4tO4gR1KWOCfrkDvw&travelmode=walking" target="_blank">Water Square</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Financial%20District%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJx4yGMiUtO4gRV-Q9Zcf8s4A&travelmode=walking" target="_blank">Financial District</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Millender%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJGaYvVi8tO4gRMfIILo7K4dw&travelmode=walking" target="_blank">Millender Center</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Renaissance%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJE4jyMSYtO4gRwaaqbv_nXTc&travelmode=walking" target="_blank">Renaissance Center</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Bricktown%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJdaoYMiktO4gRdEoBcscFi-c&travelmode=walking" target="_blank">Bricktown</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Greektown%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJk6vBpC4tO4gR4hvCODw8DzI&travelmode=walking" target="_blank">Greektown</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Cadillac%20Center%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJpbzAJC4tO4gRSml2vPz-CLw&travelmode=walking" target="_blank">Cadillac Center</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Broadway%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJmXVJIDItO4gRYsWvL43J7M4&travelmode=walking" target="_blank">Broadway</a>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Grand%20Circus%20Park%20People%20Mover%20Station%2C%20Detroit%2C%20MI&destination_place_id=ChIJK0IsxTMtO4gRlD6rgXQvUd4&travelmode=walking" target="_blank">Grand Circus Park</a>
-    </div>
-  </section>
+  <div class="manual-links">
+    <button type="button" onclick="showManualStationResult('Times Square')">Times Square</button>
+    <button type="button" onclick="showManualStationResult('Michigan')">Michigan</button>
+    <button type="button" onclick="showManualStationResult('Fort/Cass')">Fort/Cass</button>
+    <button type="button" onclick="showManualStationResult('Huntington Place')">Huntington Place</button>
+    <button type="button" onclick="showManualStationResult('Water Square')">Water Square</button>
+    <button type="button" onclick="showManualStationResult('Financial District')">Financial District</button>
+    <button type="button" onclick="showManualStationResult('Millender Center')">Millender Center</button>
+    <button type="button" onclick="showManualStationResult('Renaissance Center')">Renaissance Center</button>
+    <button type="button" onclick="showManualStationResult('Bricktown')">Bricktown</button>
+    <button type="button" onclick="showManualStationResult('Greektown')">Greektown</button>
+    <button type="button" onclick="showManualStationResult('Cadillac Center')">Cadillac Center</button>
+    <button type="button" onclick="showManualStationResult('Broadway')">Broadway</button>
+    <button type="button" onclick="showManualStationResult('Grand Circus Park')">Grand Circus Park</button>
+  </div>
+
+  <div id="manualStationResult" class="destination-result" style="display:none; margin-top:16px;"></div>
+</section>
 
     <section class="panel info-panel">
-      <h2>Need More Help?</h2>
-      <p>
-        For service alerts and more information, visit the
-        <a href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer">Detroit People Mover website</a>.
-      </p>
-      <p>
-        If you need assistance, call the Control Center at
-        <a href="tel:3139630171">313-963-0171</a>.
-      </p>
+  <h2 data-i18n="helpHeading">Need More Help?</h2>
+  <p id="helpWebsiteText">
+    For service alerts and more information, visit the
+    <a href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer" translate="no">Detroit People Mover website</a>.
+  </p>
+  <p id="helpPhoneText">
+    If you need assistance, call the Control Center at
+    <a href="tel:3139630171">313-963-0171</a>.
+  </p>
 
-      <div class="info-actions">
-        <a class="website-button" href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer">
-          Visit the People Mover Website
-        </a>
-      </div>
-    </section>
+  <div class="info-actions">
+    <a class="website-button" href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer" id="websiteButton">
+      Visit the People Mover Website
+    </a>
+  </div>
+</section>
   </div>
 
   <script>
     const systemStatus = {
       systemClosed: false,
-      serviceAlert: "",
+      serviceAlert: {
+      en: "",
+      es: "",
+      ar: "",
+      bn: ""
+    },
       closedStations: [],
       regularHours: [
       { day: "Monday-Friday", time: "6:30 AM - 12:00 AM" },
@@ -686,7 +1013,297 @@ const destinations = [
     stationPlaceId: "ChIJ_yh_IjEtO4gRQu5zDW_F92I"
   }
 ];
+const stationAccessNotes = {
+  "Huntington Place": {
+    en: "Station is located inside Huntington Place on the fourth floor.",
+    es: "La estación está ubicada dentro de Huntington Place en el cuarto piso.",
+    ar: "تقع المحطة داخل Huntington Place في الطابق الرابع.",
+    bn: "স্টেশনটি Huntington Place-এর ভেতরে চতুর্থ তলায় অবস্থিত।"
+  },
+  "Millender Center": {
+    en: "Station is located inside the Millender Center building. Take the elevator to the fifth floor.",
+    es: "La estación está ubicada dentro del edificio Millender Center. Tome el ascensor hasta el quinto piso.",
+    ar: "تقع المحطة داخل مبنى Millender Center. استخدم المصعد إلى الطابق الخامس.",
+    bn: "স্টেশনটি Millender Center ভবনের ভেতরে অবস্থিত। লিফট নিয়ে পঞ্চম তলায় যান।"
+  },
+  "Renaissance Center": {
+    en: "Station is located on the second floor. A street-level entrance connects to the station by elevator, and a skybridge connects the lobby to the station.",
+    es: "La estación está ubicada en el segundo piso. Una entrada a nivel de calle conecta con la estación por ascensor, y un puente elevado conecta el vestíbulo con la estación.",
+    ar: "تقع المحطة في الطابق الثاني. يوجد مدخل على مستوى الشارع يتصل بالمحطة عبر مصعد، كما يربط جسر علوي الردهة بالمحطة.",
+    bn: "স্টেশনটি দ্বিতীয় তলায় অবস্থিত। রাস্তার সমতলের একটি প্রবেশপথ লিফটের মাধ্যমে স্টেশনের সাথে যুক্ত, এবং একটি স্কাইব্রিজ লবিকে স্টেশনের সাথে যুক্ত করে।"
+  },
+  "Greektown": {
+    en: "Station lobby is located inside Hollywood Casino at Greektown. Take the elevator or escalator to the second floor.",
+    es: "El vestíbulo de la estación está ubicado dentro de Hollywood Casino at Greektown. Tome el ascensor o la escalera mecánica hasta el segundo piso.",
+    ar: "تقع ردهة المحطة داخل Hollywood Casino at Greektown. استخدم المصعد أو السلم المتحرك إلى الطابق الثاني.",
+    bn: "স্টেশনের লবি Hollywood Casino at Greektown-এর ভেতরে অবস্থিত। লিফট বা এসকেলেটর নিয়ে দ্বিতীয় তলায় যান।"
+  }
+};
+const stationAccessibilityAlerts = {
+  "Grand Circus Park": {
+    en: "Grand Circus Park is accessible via elevator only.",
+    es: "Grand Circus Park es accesible únicamente por ascensor.",
+    ar: "يمكن الوصول إلى Grand Circus Park عبر المصعد فقط.",
+    bn: "Grand Circus Park-এ শুধুমাত্র লিফটের মাধ্যমে প্রবেশ করা যায়।"
+  },
+  "Michigan": {
+    en: "Michigan Station: Escalator out of service.",
+    es: "Estación Michigan: escalera mecánica fuera de servicio.",
+    ar: "محطة Michigan: السلم المتحرك خارج الخدمة.",
+    bn: "Michigan স্টেশন: এসকেলেটর অচল।"
+  },
+  "Water Square": {
+    en: "Water Square: Elevator out of service.",
+    es: "Water Square: ascensor fuera de servicio.",
+    ar: "Water Square: المصعد خارج الخدمة.",
+    bn: "Water Square: লিফট অচল।"
+  },
+  "Renaissance Center": {
+    en: "Renaissance Center: Escalator out of service.",
+    es: "Renaissance Center: escalera mecánica fuera de servicio.",
+    ar: "Renaissance Center: السلم المتحرك خارج الخدمة.",
+    bn: "Renaissance Center: এসকেলেটর অচল।"
+  },
+  "Broadway": {
+    en: "Broadway: Escalator out of service.",
+    es: "Broadway: escalera mecánica fuera de servicio.",
+    ar: "Broadway: السلم المتحرك خارج الخدمة.",
+    bn: "Broadway: এসকেলেটর অচল।"
+  },
+  "Greektown": {
+    en: "Greektown Station elevator access is inside Hollywood Casino at Greektown near the Beaubien entrance. To access the first floor through the casino, call Security Command at 313-309-5350. Please note that anyone entering the casino must be at least 21 years of age.",
+    es: "El acceso al ascensor de la estación Greektown está dentro de Hollywood Casino at Greektown, cerca de la entrada de Beaubien. Para acceder al primer piso a través del casino, llame a Security Command al 313-309-5350. Tenga en cuenta que toda persona que ingrese al casino debe tener al menos 21 años de edad.",
+    ar: "يقع الوصول إلى مصعد محطة Greektown داخل Hollywood Casino at Greektown بالقرب من مدخل Beaubien. للوصول إلى الطابق الأول عبر الكازينو، اتصل بـ Security Command على الرقم 313-309-5350. يرجى ملاحظة أن عمر أي شخص يدخل الكازينو يجب أن يكون 21 عامًا على الأقل.",
+    bn: "Greektown স্টেশনের লিফট প্রবেশপথ Hollywood Casino at Greektown-এর ভেতরে, Beaubien প্রবেশদ্বারের কাছে অবস্থিত। ক্যাসিনোর ভেতর দিয়ে প্রথম তলায় যেতে Security Command-এ 313-309-5350 নম্বরে কল করুন। দয়া করে মনে রাখবেন, ক্যাসিনোতে প্রবেশকারীর বয়স কমপক্ষে ২১ বছর হতে হবে।"
+  },
+  "Times Square": {
+    en: "Times Square Station is currently closed for platform resurfacing. Please use Michigan as the nearest alternative station.",
+    es: "La estación Times Square está cerrada actualmente por repavimentación de la plataforma. Utilice Michigan como la estación alternativa más cercana.",
+    ar: "محطة Times Square مغلقة حاليًا لإعادة تأهيل الرصيف. يرجى استخدام Michigan باعتبارها المحطة البديلة الأقرب.",
+    bn: "প্ল্যাটফর্ম সংস্কারের জন্য Times Square স্টেশন বর্তমানে বন্ধ রয়েছে। নিকটতম বিকল্প স্টেশন হিসেবে Michigan ব্যবহার করুন।"
+  }
+};
+let currentLanguage = "en";
 
+const translations = {
+  en: {
+    heroTitle: "Find the Nearest Station",
+    heroSubtitle: "Use your current location to open walking directions to the nearest Detroit People Mover station in Google Maps app or browser.",
+    useLocationButton: "Use My Location",
+    footerNote: "Start your fun on the People Mover! Always FREE to ride.",
+    destinationHeading: "Going somewhere specific?",
+    destinationIntro: "Once you're on the People Mover, use this guide to find the right station for your destination.",
+    destinationPlaceholder: "Choose a destination",
+    manualIntro: "If location access is unavailable, choose a station below to open walking directions.",
+    helpHeading: "Need More Help?",
+    helpWebsiteText: 'For service alerts and more information, visit the <a href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer" translate="no">Detroit People Mover website</a>.',
+    helpPhoneText: 'If you need assistance, call the Control Center at <a href="tel:3139630171">313-963-0171</a>.',
+    websiteButton: "Visit the People Mover Website",
+    privacyLink: "Privacy & Data",
+    serviceAlertLabel: "Service Alert",
+    nearestStationHeading: "Your Nearest Station",
+    entranceTip: "Entrance tip:",
+    takeMeThere: "Take Me There",
+    rideToLabel: "Ride the People Mover to:",
+    walkFromLabel: "Walk from",
+    walkToDestination: "to destination",
+    gettingLocation: "Getting your location...",
+    systemClosedMessage: "The system is currently closed. Please check the website for service updates.",
+    geoUnsupported: "Geolocation is not supported on this device.",
+    noOpenStations: "No open stations are currently available.",
+    locationDenied: "Location access was denied or unavailable. Use one of the manual station links below.",
+    hoursHeading: "Hours of Operation",
+    systemMapHeading: "System Map",
+    mapPdfLink: "View & Download the PDF",
+    transitAppDescription: "Frequent transit rider? Download the Transit app for regional trip planning.",
+    downloadTransitApp: "Download the Transit App",
+    mondayFriday: "Monday-Friday",
+    saturday: "Saturday",
+    sunday: "Sunday",
+    accessibilityNotice: "Accessibility notice:",
+  },
+  es: {
+    heroTitle: "Encuentra la estación más cercana",
+    heroSubtitle: "Usa tu ubicación actual para abrir indicaciones a pie hacia la estación más cercana del Detroit People Mover en Google Maps.",
+    useLocationButton: "Usar mi ubicación",
+    footerNote: "¡Comienza tu diversión en el People Mover! Siempre es GRATIS.",
+    destinationHeading: "¿Vas a un lugar específico?",
+    destinationIntro: "Una vez que estés en el People Mover, usa esta guía para encontrar la estación correcta para tu destino.",
+    destinationPlaceholder: "Elige un destino",
+    manualIntro: "Si la ubicación no está disponible, elige una estación abajo para abrir indicaciones a pie.",
+    helpHeading: "¿Necesitas más ayuda?",
+    helpWebsiteText: 'Para alertas de servicio y más información, visita el <a href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer" translate="no">sitio web del Detroit People Mover</a>.',
+    helpPhoneText: 'Si necesitas ayuda, llama al Centro de Control al <a href="tel:3139630171">313-963-0171</a>.',
+    websiteButton: "Visitar el sitio web del People Mover",
+    privacyLink: "Privacidad y datos",
+    serviceAlertLabel: "Alerta de servicio",
+    nearestStationHeading: "Tu estación más cercana",
+    entranceTip: "Consejo de entrada:",
+    takeMeThere: "Llévame allí",
+    rideToLabel: "Toma el People Mover hasta:",
+    walkFromLabel: "Camina desde",
+    walkToDestination: "hasta el destino",
+    gettingLocation: "Obteniendo tu ubicación...",
+    systemClosedMessage: "El sistema está cerrado en este momento. Consulta el sitio web para actualizaciones.",
+    geoUnsupported: "La geolocalización no es compatible con este dispositivo.",
+    noOpenStations: "No hay estaciones abiertas disponibles en este momento.",
+    locationDenied: "El acceso a la ubicación fue denegado o no está disponible. Usa uno de los enlaces manuales de estación a continuación.",
+    hoursHeading: "Horario de operación",
+    systemMapHeading: "Mapa del sistema",
+    mapPdfLink: "Ver y descargar el PDF",
+    transitAppDescription: "¿Usas el transporte con frecuencia? Descarga la Transit App para planificar viajes regionales.",
+    downloadTransitApp: "Descargar la Transit App",
+    mondayFriday: "Lunes-viernes",
+    saturday: "Sábado",
+    sunday: "Domingo",
+    accessibilityNotice: "Aviso de accesibilidad:",
+  },
+  ar: {
+    heroTitle: "اعثر على أقرب محطة",
+    heroSubtitle: "استخدم موقعك الحالي لفتح اتجاهات المشي إلى أقرب محطة لـ Detroit People Mover في Google Maps.",
+    useLocationButton: "استخدم موقعي",
+    footerNote: "ابدأ رحلتك الممتعة على الـ People Mover! الركوب مجاني دائمًا.",
+    destinationHeading: "هل تتجه إلى مكان محدد؟",
+    destinationIntro: "بمجرد أن تكون على متن الـ People Mover، استخدم هذا الدليل لمعرفة المحطة المناسبة لوجهتك.",
+    destinationPlaceholder: "اختر وجهة",
+    manualIntro: "إذا لم تتوفر خدمة الموقع، اختر محطة أدناه لفتح اتجاهات المشي.",
+    helpHeading: "هل تحتاج إلى مزيد من المساعدة؟",
+    helpWebsiteText: 'للتنبيهات المتعلقة بالخدمة ولمزيد من المعلومات، قم بزيارة <a href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer" translate="no">موقع Detroit People Mover</a>.',
+    helpPhoneText: 'إذا كنت بحاجة إلى مساعدة، اتصل بمركز التحكم على <a href="tel:3139630171">313-963-0171</a>.',
+    websiteButton: "زيارة موقع People Mover",
+    privacyLink: "الخصوصية والبيانات",
+    serviceAlertLabel: "تنبيه الخدمة",
+    nearestStationHeading: "أقرب محطة إليك",
+    entranceTip: "ملاحظة عن المدخل:",
+    takeMeThere: "خذني إلى هناك",
+    rideToLabel: "استقل People Mover إلى:",
+    walkFromLabel: "امشِ من",
+    walkToDestination: "إلى الوجهة",
+    gettingLocation: "جارٍ تحديد موقعك...",
+    systemClosedMessage: "النظام مغلق حاليًا. يرجى مراجعة الموقع الإلكتروني للحصول على التحديثات.",
+    geoUnsupported: "تحديد الموقع الجغرافي غير مدعوم على هذا الجهاز.",
+    noOpenStations: "لا توجد محطات مفتوحة متاحة حاليًا.",
+    locationDenied: "تم رفض الوصول إلى الموقع أو أنه غير متاح. استخدم أحد روابط المحطات أدناه.",
+    hoursHeading: "ساعات التشغيل",
+    systemMapHeading: "خريطة النظام",
+    mapPdfLink: "عرض وتنزيل ملف PDF",
+    transitAppDescription: "هل تستخدم النقل العام كثيرًا؟ قم بتنزيل Transit App لتخطيط الرحلات الإقليمية.",
+    downloadTransitApp: "تنزيل Transit App",
+    mondayFriday: "الاثنين-الجمعة",
+    saturday: "السبت",
+    sunday: "الأحد",
+    accessibilityNotice: "ملاحظة إمكانية الوصول:",
+  },
+  bn: {
+    heroTitle: "সবচেয়ে কাছের স্টেশন খুঁজুন",
+    heroSubtitle: "আপনার বর্তমান অবস্থান ব্যবহার করে Google Maps-এ নিকটতম Detroit People Mover স্টেশনের হাঁটার দিকনির্দেশ খুলুন।",
+    useLocationButton: "আমার অবস্থান ব্যবহার করুন",
+    footerNote: "People Mover-এ আপনার ভ্রমণ শুরু করুন! সবসময়ই ফ্রি।",
+    destinationHeading: "নির্দিষ্ট কোথাও যাচ্ছেন?",
+    destinationIntro: "People Mover-এ ওঠার পরে, আপনার গন্তব্যের জন্য সঠিক স্টেশন খুঁজতে এই গাইড ব্যবহার করুন।",
+    destinationPlaceholder: "একটি গন্তব্য বেছে নিন",
+    manualIntro: "অবস্থান সুবিধা না থাকলে, হাঁটার দিকনির্দেশ খুলতে নিচের একটি স্টেশন বেছে নিন।",
+    helpHeading: "আরও সাহায্য দরকার?",
+    helpWebsiteText: 'সার্ভিস অ্যালার্ট ও আরও তথ্যের জন্য <a href="https://www.thepeoplemover.com/" target="_blank" rel="noopener noreferrer" translate="no">Detroit People Mover ওয়েবসাইট</a> দেখুন।',
+    helpPhoneText: 'সাহায্যের প্রয়োজন হলে কন্ট্রোল সেন্টারে কল করুন <a href="tel:3139630171">313-963-0171</a> নম্বরে।',
+    websiteButton: "People Mover ওয়েবসাইটে যান",
+    privacyLink: "গোপনীয়তা ও তথ্য",
+    serviceAlertLabel: "সার্ভিস অ্যালার্ট",
+    nearestStationHeading: "আপনার নিকটতম স্টেশন",
+    entranceTip: "প্রবেশ নির্দেশনা:",
+    takeMeThere: "আমাকে সেখানে নিয়ে চলুন",
+    rideToLabel: "People Mover-এ যান:",
+    walkFromLabel: "হাঁটুন",
+    walkToDestination: "থেকে গন্তব্যে",
+    gettingLocation: "আপনার অবস্থান নেওয়া হচ্ছে...",
+    systemClosedMessage: "সিস্টেমটি বর্তমানে বন্ধ। আপডেটের জন্য ওয়েবসাইট দেখুন।",
+    geoUnsupported: "এই ডিভাইসে জিওলোকেশন সমর্থিত নয়।",
+    noOpenStations: "এই মুহূর্তে কোনো খোলা স্টেশন উপলব্ধ নেই।",
+    locationDenied: "অবস্থান ব্যবহারের অনুমতি দেওয়া হয়নি বা উপলব্ধ নয়। নিচের ম্যানুয়াল স্টেশন লিংক ব্যবহার করুন।",
+    hoursHeading: "চালুর সময়সূচি",
+    systemMapHeading: "সিস্টেম ম্যাপ",
+    mapPdfLink: "পিডিএফ দেখুন ও ডাউনলোড করুন",
+    transitAppDescription: "আপনি কি নিয়মিত ট্রানজিট ব্যবহার করেন? আঞ্চলিক ভ্রমণ পরিকল্পনার জন্য Transit App ডাউনলোড করুন।",
+    downloadTransitApp: "Transit App ডাউনলোড করুন",
+    mondayFriday: "সোমবার-শুক্রবার",
+    saturday: "শনিবার",
+    sunday: "রবিবার",
+    accessibilityNotice: "অ্যাক্সেসিবিলিটি নোটিশ:",
+  }
+};
+
+function t(key) {
+  return translations[currentLanguage]?.[key] || translations.en[key] || key;
+}
+function getCurrentServiceAlert() {
+  if (!systemStatus.serviceAlert) {
+    return "";
+  }
+
+  if (typeof systemStatus.serviceAlert === "string") {
+    return systemStatus.serviceAlert;
+  }
+
+  return (
+    systemStatus.serviceAlert[currentLanguage] ||
+    systemStatus.serviceAlert.en ||
+    ""
+  );
+}
+function getCurrentStationAccessNote(stationName) {
+  const note = stationAccessNotes[stationName];
+  if (!note) return "";
+  if (typeof note === "string") return note;
+  return note[currentLanguage] || note.en || "";
+}
+
+function getCurrentAccessibilityAlert(stationName) {
+  const notice = stationAccessibilityAlerts?.[stationName];
+  if (!notice) return "";
+  if (typeof notice === "string") return notice;
+  return notice[currentLanguage] || notice.en || "";
+}
+function formatHoursTime(timeString) {
+  if (currentLanguage !== "ar") {
+    return timeString;
+  }
+
+  return timeString
+    .replace(/AM/g, "ص")
+    .replace(/PM/g, "م");
+}
+function applyTranslations() {
+  document.documentElement.lang = currentLanguage;
+  document.documentElement.dir = currentLanguage === "ar" ? "rtl" : "ltr";
+
+  const textNodes = document.querySelectorAll("[data-i18n]");
+  textNodes.forEach(el => {
+    const key = el.dataset.i18n;
+    el.textContent = t(key);
+  });
+
+  const useLocationButton = document.getElementById("useLocationButton");
+  if (useLocationButton) useLocationButton.textContent = t("useLocationButton");
+
+  const helpWebsiteText = document.getElementById("helpWebsiteText");
+  if (helpWebsiteText) helpWebsiteText.innerHTML = t("helpWebsiteText");
+
+  const helpPhoneText = document.getElementById("helpPhoneText");
+  if (helpPhoneText) helpPhoneText.innerHTML = t("helpPhoneText");
+
+  const websiteButton = document.getElementById("websiteButton");
+  if (websiteButton) websiteButton.textContent = t("websiteButton");
+
+  const privacyLink = document.getElementById("privacyLink");
+  if (privacyLink) privacyLink.textContent = t("privacyLink");
+
+  const destinationPlaceholder = document.querySelector('#destinationSelect option[value=""]');
+  if (destinationPlaceholder) {
+    destinationPlaceholder.textContent = t("destinationPlaceholder");
+  }
+
+  renderServiceBanner();
+}
     function distance(lat1, lng1, lat2, lng2) {
       const toRad = deg => deg * Math.PI / 180;
       const R = 6371000;
@@ -706,20 +1323,21 @@ const destinations = [
     }
 
     function renderServiceBanner() {
-      const banner = document.getElementById("serviceBanner");
+  const banner = document.getElementById("serviceBanner");
+  const alertText = getCurrentServiceAlert();
 
-      if (!systemStatus.serviceAlert) {
-        banner.innerHTML = "";
-        return;
-      }
+  if (!alertText) {
+    banner.innerHTML = "";
+    return;
+  }
 
-      banner.innerHTML = `
-        <div class="alert-banner">
-          <strong>Service Alert</strong>
-          <p>${systemStatus.serviceAlert}</p>
-        </div>
-      `;
-    }
+  banner.innerHTML = `
+    <div class="alert-banner">
+      <strong>${t("serviceAlertLabel")}</strong>
+      <p>${alertText}</p>
+    </div>
+  `;
+}
 
     function applyClosedStations() {
     const links = document.querySelectorAll(".manual-links a");
@@ -737,22 +1355,33 @@ const destinations = [
  function renderHoursInHelpPanel() {
   const infoPanel = document.querySelector(".info-panel");
 
+  const translatedHours = [
+  { day: t("mondayFriday"), time: formatHoursTime("6:30 AM - 12:00 AM") },
+  { day: t("saturday"), time: formatHoursTime("10:00 AM - 12:00 AM") },
+  { day: t("sunday"), time: formatHoursTime("10:00 AM - 10:00 PM") }
+];
+
+  const existingHoursCards = infoPanel.querySelectorAll(".hours-card");
+  existingHoursCards.forEach(card => card.remove());
+
   const hoursHtml = `
     <div class="hours-card">
-      <h3>Hours of Operation</h3>
+      <h3>${t("hoursHeading")}</h3>
       <div class="hours-grid">
-        ${systemStatus.regularHours.map(item => `
-          <div class="hours-day">${item.day}</div>
-          <div class="hours-time">${item.time}</div>
-        `).join("")}
-      </div>
+  ${translatedHours.map(item => `
+    <div class="hours-row">
+      <span class="hours-day">${item.day}:</span>
+      <span class="hours-time">${item.time}</span>
+    </div>
+  `).join("")}
+</div>
     </div>
 
     <div class="hours-card map-card">
-      <h3>System Map</h3>
+      <h3>${t("systemMapHeading")}</h3>
       <p class="transit-app-note">
         <a class="map-link" href="system-map.pdf" target="_blank" rel="noopener noreferrer">
-    View & Download the PDF
+          ${t("mapPdfLink")}
         </a>
       </p>
     </div>
@@ -760,13 +1389,13 @@ const destinations = [
     <div class="hours-card transit-card">
       <div class="transit-card-content">
         <div class="transit-card-text">
-          <h3>Transit App</h3>
+          <h3 translate="no">Transit App</h3>
           <p class="transit-app-note">
-            Frequent transit rider? Download the Transit app for regional trip planning.
+            ${t("transitAppDescription")}
           </p>
           <div class="info-actions">
             <a class="website-button" href="https://www.rtamichigan.org/transitapp" target="_blank" rel="noopener noreferrer">
-              Download the Transit App
+              ${t("downloadTransitApp")}
             </a>
           </div>
         </div>
@@ -806,20 +1435,84 @@ function handleDestinationChange() {
   }
 
   const selected = destinations.find(destination => destination.name === selectedName);
+  const accessNote = getCurrentStationAccessNote(selected.closestStation);
+  const accessibilityNotice = getCurrentAccessibilityAlert(selected.closestStation);
 
   resultBox.innerHTML = `
-    <h3>${selected.name}</h3>
-    <p>Ride the People Mover to: <span class="destination-station">${selected.closestStation}</span></p>
+    <h3 translate="no">${selected.name}</h3>
+    <p>${t("rideToLabel")} <span class="destination-station" translate="no">${selected.closestStation}</span></p>
+    ${accessNote ? `<p class="destination-access-note"><strong>${t("entranceTip")}</strong> ${accessNote}</p>` : ""}
+    ${accessibilityNotice ? `<p class="accessibility-alert"><strong>${t("accessibilityNotice")}</strong> ${accessibilityNotice}</p>` : ""}
     <div class="destination-actions">
       <a class="destination-button" href="#" onclick="openDestinationWalk('${selected.name.replace(/'/g, "\\'")}'); return false;">
-        Walk from ${selected.closestStation} to destination
+        ${t("walkFromLabel")} <span translate="no">${selected.closestStation}</span> ${t("walkToDestination")}
       </a>
     </div>
   `;
 
   resultBox.style.display = "block";
+  resultBox.classList.remove("is-visible");
+  void resultBox.offsetWidth;
+  resultBox.classList.add("is-visible");
 }
+function showManualStationResult(stationName) {
+  const resultBox = document.getElementById("manualStationResult");
+  const station = stations.find(item => item.name === stationName);
+  const accessNote = getCurrentStationAccessNote(stationName);
+  const accessibilityNotice = getCurrentAccessibilityAlert(stationName);
 
+  const url =
+    "https://www.google.com/maps/dir/?api=1" +
+    "&destination=" + encodeURIComponent(station.destination) +
+    "&destination_place_id=" + encodeURIComponent(station.placeId) +
+    "&travelmode=walking";
+
+  resultBox.innerHTML = `
+    <h3 translate="no">${stationName}</h3>
+    ${accessNote ? `<p class="destination-access-note"><strong>${t("entranceTip")}</strong> ${accessNote}</p>` : ""}
+    ${accessibilityNotice ? `<p class="accessibility-alert"><strong>${t("accessibilityNotice")}</strong> ${accessibilityNotice}</p>` : ""}
+    <div class="destination-actions">
+      <a class="destination-button" href="${url}" target="_blank" rel="noopener noreferrer">
+        ${t("takeMeThere")}
+      </a>
+    </div>
+  `;
+
+  resultBox.style.display = "block";
+  resultBox.classList.remove("is-visible");
+  void resultBox.offsetWidth;
+  resultBox.classList.add("is-visible");
+}
+function renderNearestStationResult(station) {
+  const resultBox = document.getElementById("locationResult");
+  const accessNote = getCurrentStationAccessNote(station.name);
+  const accessibilityNotice = getCurrentAccessibilityAlert(station.name);
+
+  const url =
+    "https://www.google.com/maps/dir/?api=1" +
+    "&destination=" + encodeURIComponent(station.destination) +
+    "&destination_place_id=" + encodeURIComponent(station.placeId) +
+    "&travelmode=walking";
+
+  resultBox.innerHTML = `
+    <h3>${t("nearestStationHeading")}</h3>
+    <div class="location-station-wrap">
+      <div class="location-station-badge" translate="no">${station.name}</div>
+    </div>
+    ${accessNote ? `<p class="location-access-note"><strong>${t("entranceTip")}</strong> ${accessNote}</p>` : ""}
+    ${accessibilityNotice ? `<p class="location-accessibility-alert"><strong>${t("accessibilityNotice")}</strong> ${accessibilityNotice}</p>` : ""}
+    <div class="location-actions">
+      <a class="location-button" href="${url}" target="_blank" rel="noopener noreferrer" aria-label="Take me there">
+        <span class="location-button-main">${t("takeMeThere")}</span>
+      </a>
+    </div>
+  `;
+
+  resultBox.style.display = "block";
+  resultBox.classList.remove("is-visible");
+  void resultBox.offsetWidth;
+  resultBox.classList.add("is-visible");
+}
 function openDestinationWalk(destinationName) {
   const selected = destinations.find(destination => destination.name === destinationName);
 
@@ -835,73 +1528,98 @@ function openDestinationWalk(destinationName) {
 }
 
     function findNearest() {
-      const status = document.getElementById("status");
+  const status = document.getElementById("status");
+  const resultBox = document.getElementById("locationResult");
 
-      if (systemStatus.systemClosed) {
-        status.textContent = "The system is currently closed. Please check the website for service updates.";
-        return;
-      }
+  resultBox.style.display = "none";
+  resultBox.innerHTML = "";
 
-      status.textContent = "Getting your location...";
+  if (systemStatus.systemClosed) {
+    status.textContent = t("systemClosedMessage");
+    return;
+  }
 
-      if (!navigator.geolocation) {
-        status.textContent = "Geolocation is not supported on this device.";
-        return;
-      }
+  status.textContent = t("gettingLocation");
 
-      navigator.geolocation.getCurrentPosition(
-        function(position) {
-          const userLat = position.coords.latitude;
-          const userLng = position.coords.longitude;
+  if (!navigator.geolocation) {
+    status.textContent = t("geoUnsupported");
+    return;
+  }
 
-          let nearest = null;
-          let minDist = Infinity;
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
 
-          const availableStations = stations.filter(
-            station => !systemStatus.closedStations.includes(station.name)
-          );
+      let nearest = null;
+      let minDist = Infinity;
 
-          for (const station of availableStations) {
-            const d = distance(userLat, userLng, station.lat, station.lng);
-            if (d < minDist) {
-              minDist = d;
-              nearest = station;
-            }
-          }
-
-          if (!nearest) {
-            status.textContent = "No open stations are currently available.";
-            return;
-          }
-
-          status.textContent = "Opening walking directions to " + nearest.name + "...";
-
-          const url =
-            "https://www.google.com/maps/dir/?api=1" +
-            "&destination=" + encodeURIComponent(nearest.destination) +
-            "&destination_place_id=" + encodeURIComponent(nearest.placeId) +
-            "&travelmode=walking";
-
-          window.location.href = url;
-        },
-        function(error) {
-          status.textContent = "Location access was denied or unavailable. Use one of the manual station links below.";
-          console.log(error);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 0
-        }
+      const availableStations = stations.filter(
+        station => !systemStatus.closedStations.includes(station.name)
       );
+
+      for (const station of availableStations) {
+        const d = distance(userLat, userLng, station.lat, station.lng);
+        if (d < minDist) {
+          minDist = d;
+          nearest = station;
+        }
+      }
+
+      if (!nearest) {
+        status.textContent = t("noOpenStations");
+        return;
+      }
+
+      status.textContent = "";
+      renderNearestStationResult(nearest);
+    },
+    function(error) {
+      status.textContent = t("locationDenied");
+      console.log(error);
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
     }
+  );
+}
 
    renderServiceBanner();
-   applyClosedStations();
-   renderHoursInHelpPanel();
-   populateDestinationDropdown();
-   
-   document.getElementById("destinationSelect").addEventListener("change", handleDestinationChange);
+applyClosedStations();
+renderHoursInHelpPanel();
+populateDestinationDropdown();
+applyTranslations();
+
+document.getElementById("destinationSelect").addEventListener("change", handleDestinationChange);
+
+document.getElementById("languageSelect").addEventListener("change", function(event) {
+  currentLanguage = event.target.value;
+  applyTranslations();
+  renderHoursInHelpPanel();
+
+  const destinationResult = document.getElementById("destinationResult");
+  if (destinationResult && destinationResult.style.display === "block") {
+    handleDestinationChange();
+  }
+
+  const locationResult = document.getElementById("locationResult");
+  if (locationResult && locationResult.style.display === "block") {
+    locationResult.style.display = "none";
+    locationResult.innerHTML = "";
+  }
+
+  const status = document.getElementById("status");
+  if (status) {
+    status.textContent = "";
+  }
+});
   </script>
+  <footer class="site-footer">
+  <a href="privacy.html" class="footer-link" id="privacyLink">Privacy &amp; Data</a>
+  <span aria-hidden="true"> | </span>
+  <a href="ada.html" class="footer-link">ADA &amp; Accessibility</a>
+</footer>
 </body>
 </html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADA & Accessibility | Detroit People Mover</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --magenta: #EC008C;
+      --cyan: #00AEEF;
+      --purple: #92278F;
+      --blue: #006DB8;
+      --indigo: #262262;
+      --yellow: #FFDE17;
+      --white: #FFFFFF;
+      --light-bg: #f7f7fb;
+      --text-dark: #1f1f2e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #f7f7fb;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px 24px;
+      box-shadow: 0 16px 40px rgba(16, 24, 40, 0.10);
+      border: 1px solid #e7e9f2;
+    }
+
+    .language-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .language-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border: none;
+      background: transparent;
+      color: #4a4a63;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 2px 18px 2px 0;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%234a4a63' d='M0 0l5 6 5-6z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: 10px 6px;
+    }
+
+    .language-select:focus {
+      outline: none;
+    }
+
+    .language-select option {
+      color: #111;
+      background: #fff;
+    }
+
+    .eyebrow {
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.8rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.04;
+      color: var(--indigo);
+    }
+
+    .intro {
+      margin: 0 0 24px;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      font-size: 1.08rem;
+      line-height: 1.55;
+      color: #4a4a63;
+    }
+
+    h2 {
+      margin: 28px 0 10px;
+      font-size: 1.2rem;
+      color: var(--indigo);
+    }
+
+    p, li {
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      color: #4a4a63;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    ul {
+      margin: 0 0 8px 20px;
+      padding: 0;
+    }
+
+    .notice-box {
+      margin-top: 18px;
+      background: #f6f7fb;
+      border: 1px solid #e4e7f0;
+      border-radius: 18px;
+      padding: 16px 18px;
+    }
+
+    .notice-box strong {
+      color: var(--indigo);
+    }
+
+    .phone-list p {
+      margin: 0 0 10px;
+    }
+
+    a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-weight: 700;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+
+    html[dir="rtl"] body,
+    html[dir="rtl"] .card,
+    html[dir="rtl"] p,
+    html[dir="rtl"] h1,
+    html[dir="rtl"] h2,
+    html[dir="rtl"] li {
+      text-align: right;
+    }
+
+    html[dir="rtl"] .language-wrap {
+      justify-content: flex-start;
+    }
+
+    html[dir="rtl"] ul {
+      margin: 0 20px 8px 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <div class="language-wrap">
+        <select id="languageSelect" class="language-select" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ar">العربية</option>
+          <option value="bn">বাংলা</option>
+        </select>
+      </div>
+
+      <div class="eyebrow" translate="no">Detroit People Mover</div>
+      <h1 data-i18n="pageTitle">ADA &amp; Accessibility</h1>
+      <p class="intro" data-i18n="intro">
+        The Detroit People Mover is committed to accessible service for all riders. This page provides key accessibility information, assistance contacts, and station-specific notices.
+      </p>
+
+      <h2 data-i18n="boardingHeading">Passenger Boarding</h2>
+      <p data-i18n="boardingText1">
+        Elevators and/or escalators are available at People Mover stations. Grand Circus Park is accessible via elevator only.
+      </p>
+      <p data-i18n="boardingText2">
+        Stations and vehicles accommodate electric scooters used by patrons with disabilities. Manual wheelchair securements are available on each train.
+      </p>
+
+      <h2 data-i18n="announcementsHeading">Announcements</h2>
+      <p data-i18n="announcementsText">
+        Automated announcements help riders identify the current station, the next approaching station, and door opening and closing.
+      </p>
+
+      <h2 data-i18n="delaysHeading">Service Delays &amp; Emergency Assistance</h2>
+      <p data-i18n="delaysText1">
+        During a hold, delay, or service stoppage, live announcements are made in stations and on trains. Riders may wait in the station or exit in a calm manner while service is disrupted.
+      </p>
+      <p data-i18n="delaysText2">
+        If emergency evacuation is required, riders should notify the Control Center using the emergency communication system or call 313-963-0171.
+      </p>
+
+      <h2 data-i18n="serviceAnimalsHeading">Service Animals</h2>
+      <p data-i18n="serviceAnimalsText">
+        Service animals and leader dogs are welcome aboard Detroit People Mover trains. Harness or leash is required.
+      </p>
+
+      <h2 data-i18n="modificationsHeading">Reasonable Modification Policy</h2>
+      <p id="modificationsText1">
+        Requests for reasonable modifications may be made by calling <a href="tel:3132242160">313-224-2160</a> or emailing <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a>.
+      </p>
+      <p id="modificationsText2">
+        ADA complaints may be submitted to the ADA Coordinator by email at <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a> or by fax at (313) 224-2134.
+      </p>
+
+      <h2 data-i18n="formatsHeading">Alternative Formats</h2>
+      <p id="formatsText">
+        Alternative formats for website information may be requested by calling <a href="tel:3132242160">313-224-2160</a> or emailing <a href="mailto:marcom@thepeoplemover.com" translate="no">marcom@thepeoplemover.com</a> with “Accessibility” in the subject line.
+      </p>
+
+      <h2 data-i18n="assistanceHeading">Additional Assistance</h2>
+      <p data-i18n="assistanceText1">
+        Emergency communication systems are located inside trains, at both station levels, and inside elevators. These connect directly to the System Control Center.
+      </p>
+      <p data-i18n="assistanceText2">
+        For deaf, hearing-impaired, or speech-loss individuals using TTY/teletypewriter services in Michigan, dial 7-1-1.
+      </p>
+
+      <h2 data-i18n="paratransitHeading">Paratransit Service</h2>
+      <p id="paratransitText">
+        Same-day paratransit service is available citywide through <span translate="no">DDOT Now</span> for eligible <span translate="no">DDOT</span> paratransit riders.
+        <a href="https://detroitmi.gov/document/paratransit-application-july-2024" target="_blank" rel="noopener noreferrer" id="paratransitLinkText">View the paratransit application</a>.
+      </p>
+
+      <h2 data-i18n="questionsHeading">Questions</h2>
+      <div class="phone-list">
+        <p><strong data-i18n="customerService">Customer Service:</strong> <a href="tel:3132242160">313-224-2160</a></p>
+        <p><strong data-i18n="controlCenter">Control Center:</strong> <a href="tel:3139630171">313-963-0171</a></p>
+      </div>
+
+      <div class="notice-box">
+        <strong data-i18n="noteLabel">Note:</strong>
+        <span data-i18n="noteText">For the most current accessibility conditions, including elevator and escalator outages, refer to the station finder and service notices on this site.</span>
+      </div>
+
+      <a href="index.html" class="back-link" data-i18n="backLink">← Back to station finder</a>
+    </div>
+  </div>
+
+  <script>
+    let currentLanguage = "en";
+
+    const translations = {
+      en: {
+        pageTitle: "ADA & Accessibility",
+        intro: "The Detroit People Mover is committed to accessible service for all riders. This page provides key accessibility information, assistance contacts, and station-specific notices.",
+        boardingHeading: "Passenger Boarding",
+        boardingText1: "Elevators and/or escalators are available at People Mover stations. Grand Circus Park is accessible via elevator only.",
+        boardingText2: "Stations and vehicles accommodate electric scooters used by patrons with disabilities. Manual wheelchair securements are available on each train.",
+        announcementsHeading: "Announcements",
+        announcementsText: "Automated announcements help riders identify the current station, the next approaching station, and door opening and closing.",
+        delaysHeading: "Service Delays & Emergency Assistance",
+        delaysText1: "During a hold, delay, or service stoppage, live announcements are made in stations and on trains. Riders may wait in the station or exit in a calm manner while service is disrupted.",
+        delaysText2: "If emergency evacuation is required, riders should notify the Control Center using the emergency communication system or call 313-963-0171.",
+        serviceAnimalsHeading: "Service Animals",
+        serviceAnimalsText: "Service animals and leader dogs are welcome aboard Detroit People Mover trains. Harness or leash is required.",
+        modificationsHeading: "Reasonable Modification Policy",
+        modificationsText1: 'Requests for reasonable modifications may be made by calling <a href="tel:3132242160">313-224-2160</a> or emailing <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a>.',
+        modificationsText2: 'ADA complaints may be submitted to the ADA Coordinator by email at <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a> or by fax at (313) 224-2134.',
+        formatsHeading: "Alternative Formats",
+        formatsText: 'Alternative formats for website information may be requested by calling <a href="tel:3132242160">313-224-2160</a> or emailing <a href="mailto:marcom@thepeoplemover.com" translate="no">marcom@thepeoplemover.com</a> with “Accessibility” in the subject line.',
+        assistanceHeading: "Additional Assistance",
+        assistanceText1: "Emergency communication systems are located inside trains, at both station levels, and inside elevators. These connect directly to the System Control Center.",
+        assistanceText2: "For deaf, hearing-impaired, or speech-loss individuals using TTY/teletypewriter services in Michigan, dial 7-1-1.",
+        paratransitHeading: "Paratransit Service",
+        paratransitText: 'Same-day paratransit service is available citywide through <span translate="no">DDOT Now</span> for eligible <span translate="no">DDOT</span> paratransit riders.',
+        paratransitLink: "View the paratransit application",
+        questionsHeading: "Questions",
+        customerService: "Customer Service:",
+        controlCenter: "Control Center:",
+        noteLabel: "Note:",
+        noteText: "For the most current accessibility conditions, including elevator and escalator outages, refer to the station finder and service notices on this site.",
+        backLink: "← Back to station finder"
+      },
+      es: {
+        pageTitle: "ADA y accesibilidad",
+        intro: "El Detroit People Mover está comprometido con un servicio accesible para todos los pasajeros. Esta página proporciona información clave sobre accesibilidad, contactos de asistencia y avisos específicos por estación.",
+        boardingHeading: "Abordaje de pasajeros",
+        boardingText1: "Hay ascensores y/o escaleras mecánicas disponibles en las estaciones del People Mover. Grand Circus Park es accesible únicamente por ascensor.",
+        boardingText2: "Las estaciones y los vehículos acomodan scooters eléctricos utilizados por pasajeros con discapacidades. Cada tren cuenta con sujeciones manuales para sillas de ruedas.",
+        announcementsHeading: "Anuncios",
+        announcementsText: "Los anuncios automatizados ayudan a los pasajeros a identificar la estación actual, la siguiente estación y la apertura y cierre de puertas.",
+        delaysHeading: "Retrasos del servicio y asistencia de emergencia",
+        delaysText1: "Durante una espera, retraso o interrupción del servicio, se hacen anuncios en vivo en estaciones y trenes. Los pasajeros pueden esperar en la estación o salir de forma tranquila mientras el servicio esté interrumpido.",
+        delaysText2: "Si se requiere una evacuación de emergencia, los pasajeros deben notificar al Control Center mediante el sistema de comunicación de emergencia o llamar al 313-963-0171.",
+        serviceAnimalsHeading: "Animales de servicio",
+        serviceAnimalsText: "Los animales de servicio y perros guía son bienvenidos a bordo de los trenes del Detroit People Mover. Se requiere arnés o correa.",
+        modificationsHeading: "Política de modificación razonable",
+        modificationsText1: 'Las solicitudes de modificaciones razonables pueden hacerse llamando al <a href="tel:3132242160">313-224-2160</a> o enviando un correo a <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a>.',
+        modificationsText2: 'Las quejas bajo ADA pueden enviarse al Coordinador ADA por correo electrónico a <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a> o por fax al (313) 224-2134.',
+        formatsHeading: "Formatos alternativos",
+        formatsText: 'Los formatos alternativos para la información del sitio web pueden solicitarse llamando al <a href="tel:3132242160">313-224-2160</a> o escribiendo a <a href="mailto:marcom@thepeoplemover.com" translate="no">marcom@thepeoplemover.com</a> con “Accessibility” en el asunto.',
+        assistanceHeading: "Asistencia adicional",
+        assistanceText1: "Los sistemas de comunicación de emergencia están ubicados dentro de los trenes, en ambos niveles de estación y dentro de los ascensores. Estos se conectan directamente con el System Control Center.",
+        assistanceText2: "Para personas sordas, con discapacidad auditiva o pérdida del habla que utilizan servicios TTY/teletypewriter en Michigan, marque 7-1-1.",
+        paratransitHeading: "Servicio de paratránsito",
+        paratransitText: 'El servicio de paratránsito el mismo día está disponible en toda la ciudad a través de <span translate="no">DDOT Now</span> para pasajeros elegibles de paratránsito <span translate="no">DDOT</span>.',
+        paratransitLink: "Ver la solicitud de paratránsito",
+        questionsHeading: "Preguntas",
+        customerService: "Servicio al cliente:",
+        controlCenter: "Centro de control:",
+        noteLabel: "Nota:",
+        noteText: "Para conocer las condiciones de accesibilidad más actuales, incluidas interrupciones de ascensores y escaleras mecánicas, consulte el buscador de estaciones y los avisos de servicio en este sitio.",
+        backLink: "← Volver al buscador de estaciones"
+      },
+      ar: {
+        pageTitle: "قانون ADA وإمكانية الوصول",
+        intro: "يلتزم Detroit People Mover بتقديم خدمة يمكن الوصول إليها لجميع الركاب. توفر هذه الصفحة معلومات أساسية حول إمكانية الوصول وجهات الاتصال الخاصة بالمساعدة والتنبيهات الخاصة بكل محطة.",
+        boardingHeading: "صعود الركاب",
+        boardingText1: "تتوفر المصاعد و/أو السلالم المتحركة في محطات People Mover. يمكن الوصول إلى Grand Circus Park عبر المصعد فقط.",
+        boardingText2: "تستوعب المحطات والعربات الدراجات الكهربائية الصغيرة المستخدمة من قبل الركاب ذوي الإعاقة. تتوفر وسائل تثبيت يدوية للكراسي المتحركة في كل قطار.",
+        announcementsHeading: "الإعلانات",
+        announcementsText: "تساعد الإعلانات الآلية الركاب على تحديد المحطة الحالية والمحطة التالية وفتح وإغلاق الأبواب.",
+        delaysHeading: "تأخيرات الخدمة والمساعدة في حالات الطوارئ",
+        delaysText1: "أثناء التوقف أو التأخير أو انقطاع الخدمة، يتم إصدار إعلانات مباشرة في المحطات وعلى القطارات. يمكن للركاب الانتظار في المحطة أو الخروج بهدوء أثناء تعطل الخدمة.",
+        delaysText2: "إذا كانت هناك حاجة إلى إخلاء طارئ، يجب على الركاب إخطار مركز التحكم باستخدام نظام الاتصال في حالات الطوارئ أو الاتصال بالرقم 313-963-0171.",
+        serviceAnimalsHeading: "حيوانات الخدمة",
+        serviceAnimalsText: "حيوانات الخدمة وكلاب الإرشاد مرحب بها على متن قطارات Detroit People Mover. يشترط وجود حزام أو طوق.",
+        modificationsHeading: "سياسة التعديل المعقول",
+        modificationsText1: 'يمكن تقديم طلبات التعديلات المعقولة عن طريق الاتصال بالرقم <a href="tel:3132242160">313-224-2160</a> أو إرسال بريد إلكتروني إلى <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a>.',
+        modificationsText2: 'يمكن تقديم شكاوى ADA إلى منسق ADA عبر البريد الإلكتروني على <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a> أو عبر الفاكس على (313) 224-2134.',
+        formatsHeading: "صيغ بديلة",
+        formatsText: 'يمكن طلب صيغ بديلة لمحتوى الموقع عن طريق الاتصال بالرقم <a href="tel:3132242160">313-224-2160</a> أو إرسال بريد إلكتروني إلى <a href="mailto:marcom@thepeoplemover.com" translate="no">marcom@thepeoplemover.com</a> مع كتابة “Accessibility” في خانة الموضوع.',
+        assistanceHeading: "مساعدة إضافية",
+        assistanceText1: "توجد أنظمة الاتصال في حالات الطوارئ داخل القطارات وعلى مستويي المحطات وداخل المصاعد. وهي تتصل مباشرة بمركز التحكم بالنظام.",
+        assistanceText2: "بالنسبة للأشخاص الصم أو ضعاف السمع أو من يعانون من فقدان النطق ويستخدمون خدمات TTY/teletypewriter في ميشيغان، اطلب 7-1-1.",
+        paratransitHeading: "خدمة النقل المكيفة",
+        paratransitText: 'تتوفر خدمة النقل المكيفة في نفس اليوم على مستوى المدينة من خلال <span translate="no">DDOT Now</span> للركاب المؤهلين لخدمة <span translate="no">DDOT</span> paratransit.',
+        paratransitLink: "عرض طلب النقل المكيف",
+        questionsHeading: "الأسئلة",
+        customerService: "خدمة العملاء:",
+        controlCenter: "مركز التحكم:",
+        noteLabel: "ملاحظة:",
+        noteText: "للاطلاع على أحدث ظروف إمكانية الوصول، بما في ذلك أعطال المصاعد والسلالم المتحركة، راجع أداة العثور على المحطات وإشعارات الخدمة على هذا الموقع.",
+        backLink: "← العودة إلى أداة العثور على المحطات"
+      },
+      bn: {
+        pageTitle: "ADA ও অ্যাক্সেসিবিলিটি",
+        intro: "Detroit People Mover সকল যাত্রীর জন্য সহজপ্রাপ্য সেবা দিতে প্রতিশ্রুতিবদ্ধ। এই পেজে অ্যাক্সেসিবিলিটি সম্পর্কিত গুরুত্বপূর্ণ তথ্য, সহায়তার যোগাযোগ, এবং স্টেশনভিত্তিক নোটিশ দেওয়া হয়েছে।",
+        boardingHeading: "যাত্রী ওঠানামা",
+        boardingText1: "People Mover স্টেশনগুলোতে লিফট এবং/অথবা এসকেলেটর রয়েছে। Grand Circus Park-এ শুধুমাত্র লিফটের মাধ্যমে প্রবেশ করা যায়।",
+        boardingText2: "স্টেশন ও যানবাহন প্রতিবন্ধী যাত্রীদের ব্যবহৃত ইলেকট্রিক স্কুটারের জন্য উপযোগী। প্রতিটি ট্রেনে ম্যানুয়াল হুইলচেয়ার সিকিউরমেন্ট উপলভ্য আছে।",
+        announcementsHeading: "ঘোষণা",
+        announcementsText: "স্বয়ংক্রিয় ঘোষণাগুলি যাত্রীদের বর্তমান স্টেশন, পরবর্তী স্টেশন, এবং দরজা খোলা ও বন্ধ হওয়া শনাক্ত করতে সহায়তা করে।",
+        delaysHeading: "সার্ভিস বিলম্ব ও জরুরি সহায়তা",
+        delaysText1: "হোল্ড, বিলম্ব, বা সার্ভিস বন্ধ হলে স্টেশন এবং ট্রেনে লাইভ ঘোষণা দেওয়া হয়। সার্ভিস ব্যাহত হলে যাত্রীরা স্টেশনে অপেক্ষা করতে বা শান্তভাবে বেরিয়ে যেতে পারেন।",
+        delaysText2: "জরুরি সরিয়ে নেওয়ার প্রয়োজন হলে যাত্রীদের জরুরি যোগাযোগ ব্যবস্থা ব্যবহার করে বা 313-963-0171 নম্বরে কল করে Control Center-কে জানাতে হবে।",
+        serviceAnimalsHeading: "সার্ভিস প্রাণী",
+        serviceAnimalsText: "Detroit People Mover ট্রেনে সার্ভিস প্রাণী ও গাইড ডগ অনুমোদিত। হারনেস বা লিশ আবশ্যক।",
+        modificationsHeading: "যৌক্তিক পরিবর্তন নীতি",
+        modificationsText1: 'যৌক্তিক পরিবর্তনের অনুরোধ <a href="tel:3132242160">313-224-2160</a> নম্বরে কল করে বা <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a>-এ ইমেল করে করা যেতে পারে।',
+        modificationsText2: 'ADA অভিযোগ ADA Coordinator-কে <a href="mailto:civilrights@thepeoplemover.com" translate="no">civilrights@thepeoplemover.com</a>-এ ইমেল করে বা (313) 224-2134 নম্বরে ফ্যাক্স করে জমা দেওয়া যেতে পারে।',
+        formatsHeading: "বিকল্প ফরম্যাট",
+        formatsText: 'ওয়েবসাইটের তথ্যের বিকল্প ফরম্যাট <a href="tel:3132242160">313-224-2160</a> নম্বরে কল করে বা <a href="mailto:marcom@thepeoplemover.com" translate="no">marcom@thepeoplemover.com</a>-এ “Accessibility” বিষয় লিখে ইমেল করে চাওয়া যেতে পারে।',
+        assistanceHeading: "অতিরিক্ত সহায়তা",
+        assistanceText1: "জরুরি যোগাযোগ ব্যবস্থা ট্রেনের ভিতরে, স্টেশনের দুই স্তরে, এবং লিফটের ভিতরে রয়েছে। এগুলি সরাসরি System Control Center-এর সাথে সংযুক্ত।",
+        assistanceText2: "মিশিগানে TTY/teletypewriter পরিষেবা ব্যবহারকারী বধির, শ্রবণপ্রতিবন্ধী, বা বাকশক্তিহীন ব্যক্তিদের জন্য 7-1-1 ডায়াল করুন।",
+        paratransitHeading: "প্যারাট্রানজিট সেবা",
+        paratransitText: 'যোগ্য <span translate="no">DDOT</span> paratransit যাত্রীদের জন্য <span translate="no">DDOT Now</span>-এর মাধ্যমে একই দিনের প্যারাট্রানজিট সেবা শহরজুড়ে উপলভ্য।',
+        paratransitLink: "প্যারাট্রানজিট আবেদনপত্র দেখুন",
+        questionsHeading: "প্রশ্ন",
+        customerService: "কাস্টমার সার্ভিস:",
+        controlCenter: "কন্ট্রোল সেন্টার:",
+        noteLabel: "নোট:",
+        noteText: "লিফট ও এসকেলেটর অচলাবস্থা সহ সর্বশেষ অ্যাক্সেসিবিলিটি পরিস্থিতির জন্য এই সাইটের স্টেশন ফাইন্ডার ও সার্ভিস নোটিশ দেখুন।",
+        backLink: "← স্টেশন ফাইন্ডারে ফিরে যান"
+      }
+    };
+
+    function t(key) {
+      return translations[currentLanguage]?.[key] || translations.en[key] || key;
+    }
+
+    function applyTranslations() {
+      document.documentElement.lang = currentLanguage;
+      document.documentElement.dir = currentLanguage === "ar" ? "rtl" : "ltr";
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        el.textContent = t(key);
+      });
+
+      const modificationsText1 = document.getElementById("modificationsText1");
+      if (modificationsText1) modificationsText1.innerHTML = t("modificationsText1");
+
+      const modificationsText2 = document.getElementById("modificationsText2");
+      if (modificationsText2) modificationsText2.innerHTML = t("modificationsText2");
+
+      const formatsText = document.getElementById("formatsText");
+      if (formatsText) formatsText.innerHTML = t("formatsText");
+
+      const paratransitText = document.getElementById("paratransitText");
+      if (paratransitText) {
+        paratransitText.innerHTML = `${t("paratransitText")} <a href="https://detroitmi.gov/document/paratransit-application-july-2024" target="_blank" rel="noopener noreferrer">${t("paratransitLink")}</a>.`;
+      }
+    }
+
+    document.getElementById("languageSelect").addEventListener("change", function(event) {
+      currentLanguage = event.target.value;
+      applyTranslations();
+    });
+
+    applyTranslations();
+  </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy & Data | Detroit People Mover</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      background: #f7f7f7;
+      color: #2f2f2f;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 28px 24px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1f1f1f;
+    }
+
+    h2 {
+      margin-top: 24px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #2a2a2a;
+    }
+
+    p {
+      margin: 0 0 14px;
+      color: #444;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+    }
+
+    a {
+      color: #005f73;
+    }
+
+    a:hover,
+    a:focus {
+      color: #0a7f95;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+
+    .language-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .language-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border: none;
+      background: transparent;
+      color: #4a4a63;
+      font-family: 'Roboto Condensed', Arial, sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 2px 18px 2px 0;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%234a4a63' d='M0 0l5 6 5-6z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: 10px 6px;
+    }
+
+    .language-select:focus {
+      outline: none;
+    }
+
+    .language-select option {
+      color: #111;
+      background: #fff;
+    }
+
+    html[dir="rtl"] body,
+    html[dir="rtl"] .card,
+    html[dir="rtl"] p,
+    html[dir="rtl"] h1,
+    html[dir="rtl"] h2 {
+      text-align: right;
+    }
+
+    html[dir="rtl"] .language-wrap {
+      justify-content: flex-start;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="language-wrap">
+        <select id="languageSelect" class="language-select" aria-label="Select language">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="ar">العربية</option>
+          <option value="bn">বাংলা</option>
+        </select>
+      </div>
+
+      <h1 data-i18n="pageTitle">Privacy &amp; Data Disclosure</h1>
+
+      <p data-i18n="intro">
+        The Detroit People Mover station finder is designed to help riders find the nearest station and open directions in Google Maps.
+      </p>
+
+      <h2 data-i18n="locationAccessHeading">Location access</h2>
+      <p data-i18n="locationAccessText">
+        If you choose Use My Location, your device may ask for permission to access your location. Your location is used only to identify a nearby Detroit People Mover station and open directions. The site does not continuously track your location.
+      </p>
+
+      <h2 data-i18n="howUsedHeading">How location is used</h2>
+      <p data-i18n="howUsedText">
+        Location is requested only after you choose to use that feature. If you do not allow location access, you can still use the page by selecting a station manually.
+      </p>
+
+      <h2 data-i18n="dataNotCollectedHeading">Data we do not intentionally collect through this page</h2>
+      <p data-i18n="dataNotCollectedText">
+        This page does not require you to create an account, sign in, or submit personal information. We do not intentionally collect or store your precise location through this tool.
+      </p>
+
+      <h2 data-i18n="thirdPartyHeading">Third-party services</h2>
+      <p id="thirdPartyText">
+        When you open directions, you may be sent to Google Maps or another map service. Those services operate under their own terms and privacy policies, including the
+        <a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" translate="no">Google Privacy Policy</a>.
+      </p>
+
+      <h2 data-i18n="hostingHeading">Website hosting</h2>
+      <p id="hostingText">
+        This page is hosted on GitHub Pages. GitHub may log visitor IP addresses for security purposes as part of hosting the site. For more information, see the
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer" translate="no">GitHub Privacy Statement</a>.
+      </p>
+
+      <a href="index.html" class="back-link" data-i18n="backLink">&larr; Back to station finder</a>
+    </div>
+  </div>
+
+  <script>
+    let currentLanguage = "en";
+
+    const translations = {
+      en: {
+        pageTitle: "Privacy & Data Disclosure",
+        intro: "The Detroit People Mover station finder is designed to help riders find the nearest station and open directions in Google Maps.",
+        locationAccessHeading: "Location access",
+        locationAccessText: "If you choose Use My Location, your device may ask for permission to access your location. Your location is used only to identify a nearby Detroit People Mover station and open directions. The site does not continuously track your location.",
+        howUsedHeading: "How location is used",
+        howUsedText: "Location is requested only after you choose to use that feature. If you do not allow location access, you can still use the page by selecting a station manually.",
+        dataNotCollectedHeading: "Data we do not intentionally collect through this page",
+        dataNotCollectedText: "This page does not require you to create an account, sign in, or submit personal information. We do not intentionally collect or store your precise location through this tool.",
+        thirdPartyHeading: "Third-party services",
+        thirdPartyText: 'When you open directions, you may be sent to Google Maps or another map service. Those services operate under their own terms and privacy policies, including the <a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" translate="no">Google Privacy Policy</a>.',
+        hostingHeading: "Website hosting",
+        hostingText: 'This page is hosted on GitHub Pages. GitHub may log visitor IP addresses for security purposes as part of hosting the site. For more information, see the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer" translate="no">GitHub Privacy Statement</a>.',
+        backLink: "← Back to station finder"
+      },
+      es: {
+        pageTitle: "Divulgación de privacidad y datos",
+        intro: "El buscador de estaciones del Detroit People Mover está diseñado para ayudar a los pasajeros a encontrar la estación más cercana y abrir indicaciones en Google Maps.",
+        locationAccessHeading: "Acceso a la ubicación",
+        locationAccessText: "Si eliges Usar mi ubicación, tu dispositivo puede solicitar permiso para acceder a tu ubicación. Tu ubicación se utiliza únicamente para identificar una estación cercana del Detroit People Mover y abrir indicaciones. El sitio no rastrea tu ubicación de forma continua.",
+        howUsedHeading: "Cómo se utiliza la ubicación",
+        howUsedText: "La ubicación solo se solicita después de que eliges usar esa función. Si no permites el acceso a la ubicación, igualmente puedes usar la página seleccionando una estación manualmente.",
+        dataNotCollectedHeading: "Datos que no recopilamos intencionalmente a través de esta página",
+        dataNotCollectedText: "Esta página no requiere que crees una cuenta, inicies sesión ni envíes información personal. No recopilamos ni almacenamos intencionalmente tu ubicación precisa a través de esta herramienta.",
+        thirdPartyHeading: "Servicios de terceros",
+        thirdPartyText: 'Cuando abres indicaciones, es posible que seas enviado a Google Maps u otro servicio de mapas. Esos servicios operan bajo sus propios términos y políticas de privacidad, incluida la <a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" translate="no">Política de Privacidad de Google</a>.',
+        hostingHeading: "Alojamiento del sitio web",
+        hostingText: 'Esta página está alojada en GitHub Pages. GitHub puede registrar direcciones IP de visitantes por motivos de seguridad como parte del alojamiento del sitio. Para más información, consulta la <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer" translate="no">Declaración de Privacidad de GitHub</a>.',
+        backLink: "← Volver al buscador de estaciones"
+      },
+      ar: {
+        pageTitle: "إفصاح الخصوصية والبيانات",
+        intro: "تم تصميم أداة العثور على محطات Detroit People Mover لمساعدة الركاب في العثور على أقرب محطة وفتح الاتجاهات في Google Maps.",
+        locationAccessHeading: "الوصول إلى الموقع",
+        locationAccessText: "إذا اخترت استخدام موقعي، فقد يطلب جهازك إذنًا للوصول إلى موقعك. يُستخدم موقعك فقط لتحديد أقرب محطة من Detroit People Mover وفتح الاتجاهات. لا يتتبع الموقع موقعك بشكل مستمر.",
+        howUsedHeading: "كيفية استخدام الموقع",
+        howUsedText: "يتم طلب الموقع فقط بعد اختيارك استخدام هذه الميزة. إذا لم تسمح بالوصول إلى الموقع، فلا يزال بإمكانك استخدام الصفحة عن طريق اختيار محطة يدويًا.",
+        dataNotCollectedHeading: "البيانات التي لا نجمعها عمدًا من خلال هذه الصفحة",
+        dataNotCollectedText: "لا تتطلب هذه الصفحة إنشاء حساب أو تسجيل الدخول أو إرسال معلومات شخصية. نحن لا نجمع أو نخزن عمدًا موقعك الدقيق من خلال هذه الأداة.",
+        thirdPartyHeading: "خدمات الجهات الخارجية",
+        thirdPartyText: 'عند فتح الاتجاهات، قد يتم توجيهك إلى Google Maps أو خدمة خرائط أخرى. تعمل هذه الخدمات وفقًا لشروطها وسياسات الخصوصية الخاصة بها، بما في ذلك <a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" translate="no">سياسة خصوصية Google</a>.',
+        hostingHeading: "استضافة الموقع",
+        hostingText: 'تتم استضافة هذه الصفحة على GitHub Pages. قد تقوم GitHub بتسجيل عناوين IP الخاصة بالزوار لأغراض أمنية كجزء من استضافة الموقع. لمزيد من المعلومات، راجع <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer" translate="no">بيان خصوصية GitHub</a>.',
+        backLink: "← العودة إلى أداة العثور على المحطات"
+      },
+      bn: {
+        pageTitle: "গোপনীয়তা ও তথ্য প্রকাশ",
+        intro: "Detroit People Mover স্টেশন ফাইন্ডারটি যাত্রীদের নিকটতম স্টেশন খুঁজে পেতে এবং Google Maps-এ দিকনির্দেশ খুলতে সহায়তা করার জন্য তৈরি করা হয়েছে।",
+        locationAccessHeading: "অবস্থান ব্যবহারের অনুমতি",
+        locationAccessText: "আপনি যদি Use My Location নির্বাচন করেন, আপনার ডিভাইস আপনার অবস্থানে প্রবেশের অনুমতি চাইতে পারে। আপনার অবস্থান শুধুমাত্র কাছাকাছি Detroit People Mover স্টেশন শনাক্ত করতে এবং দিকনির্দেশ খুলতে ব্যবহৃত হয়। সাইটটি আপনার অবস্থান ক্রমাগত ট্র্যাক করে না।",
+        howUsedHeading: "অবস্থান কীভাবে ব্যবহার করা হয়",
+        howUsedText: "আপনি এই ফিচার ব্যবহার করতে চাইলে তবেই অবস্থান চাওয়া হয়। আপনি অনুমতি না দিলেও ম্যানুয়ালি স্টেশন নির্বাচন করে পেজ ব্যবহার করতে পারবেন।",
+        dataNotCollectedHeading: "এই পেজের মাধ্যমে আমরা যে তথ্য ইচ্ছাকৃতভাবে সংগ্রহ করি না",
+        dataNotCollectedText: "এই পেজ ব্যবহার করতে কোনো অ্যাকাউন্ট তৈরি, সাইন ইন, বা ব্যক্তিগত তথ্য জমা দেওয়ার প্রয়োজন নেই। আমরা এই টুলের মাধ্যমে আপনার সুনির্দিষ্ট অবস্থান ইচ্ছাকৃতভাবে সংগ্রহ বা সংরক্ষণ করি না।",
+        thirdPartyHeading: "তৃতীয়-পক্ষ সেবা",
+        thirdPartyText: 'আপনি দিকনির্দেশ খুললে Google Maps বা অন্য কোনো ম্যাপ সেবায় পাঠানো হতে পারে। সেই সেবাগুলি তাদের নিজস্ব শর্ত ও গোপনীয়তা নীতির অধীনে পরিচালিত হয়, যার মধ্যে <a href="https://policies.google.com/privacy?hl=en-US" target="_blank" rel="noopener noreferrer" translate="no">Google Privacy Policy</a> অন্তর্ভুক্ত।',
+        hostingHeading: "ওয়েবসাইট হোস্টিং",
+        hostingText: 'এই পেজটি GitHub Pages-এ হোস্ট করা হয়েছে। সাইট হোস্টিংয়ের অংশ হিসেবে GitHub নিরাপত্তার জন্য ভিজিটরদের IP ঠিকানা লগ করতে পারে। আরও তথ্যের জন্য <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer" translate="no">GitHub Privacy Statement</a> দেখুন।',
+        backLink: "← স্টেশন ফাইন্ডারে ফিরে যান"
+      }
+    };
+
+    function t(key) {
+      return translations[currentLanguage]?.[key] || translations.en[key] || key;
+    }
+
+    function applyTranslations() {
+      document.documentElement.lang = currentLanguage;
+      document.documentElement.dir = currentLanguage === "ar" ? "rtl" : "ltr";
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        el.textContent = t(key);
+      });
+
+      const thirdPartyText = document.getElementById("thirdPartyText");
+      if (thirdPartyText) thirdPartyText.innerHTML = t("thirdPartyText");
+
+      const hostingText = document.getElementById("hostingText");
+      if (hostingText) hostingText.innerHTML = t("hostingText");
+    }
+
+    document.getElementById("languageSelect").addEventListener("change", function(event) {
+      currentLanguage = event.target.value;
+      applyTranslations();
+    });
+
+    applyTranslations();
+  </script>
+</body>
+</html>
