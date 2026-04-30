@@ -6,8 +6,7 @@
   <title>Nearest People Mover Station</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --magenta: #EC008C;
@@ -252,16 +251,6 @@ html[dir="rtl"] .language-wrap {
 
 .location-result {
   display: none;
-  margin-top: 18px;
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.22);
-  border-radius: 18px;
-  padding: 18px 16px;
-  color: var(--white);
-}
-
-.location-result {
-  display: none;
   margin-top: 4px;
   background: rgba(255,255,255,0.14);
   border: 1px solid rgba(255,255,255,0.22);
@@ -322,48 +311,6 @@ html[dir="rtl"] .language-wrap {
   text-align: center;
 }
 
-.location-button {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  text-decoration: none;
-  padding: 13px 20px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  color: var(--white) !important;
-  font-weight: 800;
-  box-shadow: 0 0 0 rgba(0, 174, 239, 0), 0 8px 18px rgba(38,34,98,0.24);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  animation: buttonGlow 1.8s ease-in-out infinite;
-}
-
-.location-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 0 6px rgba(0, 174, 239, 0.20), 0 14px 28px rgba(38,34,98,0.30);
-  text-decoration: none !important;
-}
-
-.location-button-main {
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-@keyframes buttonGlow {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 174, 239, 0), 0 8px 18px rgba(38,34,98,0.24);
-  }
-  50% {
-    box-shadow: 0 0 0 6px rgba(0, 174, 239, 0.22), 0 12px 24px rgba(38,34,98,0.30);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 174, 239, 0), 0 8px 18px rgba(38,34,98,0.24);
-  }
-}
-
     .panel {
       margin-top: 24px;
       background: var(--white);
@@ -404,8 +351,7 @@ html[dir="rtl"] .language-wrap {
   margin-bottom: 16px;
 }
 
-.destination-select,
-.manual-select {
+.destination-select {
   transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
@@ -452,62 +398,10 @@ html[dir="rtl"] .language-wrap {
   font-family: 'Roboto Condensed', Arial, sans-serif;
   line-height: 1.5;
 }
-
-.destination-button {
-  display: inline-block;
-  text-decoration: none;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  color: var(--white) !important;
-  font-weight: 800;
-  box-shadow: 0 0 0 rgba(0, 174, 239, 0), 0 8px 18px rgba(38,34,98,0.24);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  animation: buttonGlow 1.8s ease-in-out infinite;
-}
-
-.destination-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 0 6px rgba(0, 174, 239, 0.20), 0 14px 28px rgba(38,34,98,0.30);
-  text-decoration: none !important;
-}
-
     .manual-links {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-    }
-
-    .manual-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      text-decoration: none;
-      padding: 8px 10px;
-      min-height: 48px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      color: var(--white);
-      font-weight: 700;
-      font-size: 0.92rem;
-      line-height: 1.15;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .manual-links a.closed-station {
-      background: #cfcfd6;
-      color: #666a73;
-      box-shadow: none;
-      pointer-events: none;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .manual-links a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.14);
     }
 
     .manual-links button {
@@ -591,14 +485,6 @@ html[dir="rtl"] .language-wrap {
       transform: translateY(-1px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.14);
       text-decoration: none !important;
-    }
-
-    .hours-list {
-      margin: 0;
-      padding-left: 18px;
-      color: #4a4a63;
-      font-family: 'Roboto Condensed', Arial, sans-serif;
-      line-height: 1.6;
     }
 
     @media (max-width: 640px) {
@@ -890,6 +776,126 @@ html[dir="rtl"] .hours-card {
 
 body.map-choice-open {
   overflow: hidden;
+}
+.destination-button,
+.location-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  padding: 16px 26px;
+  min-height: 54px;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    #d8fff3 0%,
+    #ffffff 48%,
+    #d9f6ff 100%
+  );
+  color: var(--indigo) !important;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.12rem;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  border: 2px solid rgba(0, 174, 239, 0.42);
+  box-shadow:
+    0 0 0 0 rgba(0, 174, 239, 0),
+    0 10px 22px rgba(38, 34, 98, 0.18);
+  transform: translateY(0);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease,
+    border-color 0.18s ease;
+  animation: softCyanPulse 1.9s ease-in-out infinite;
+}
+
+.destination-button::before,
+.location-button::before {
+  content: "";
+  position: absolute;
+  top: -70%;
+  left: -85%;
+  width: 55%;
+  height: 240%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.10) 30%,
+    rgba(255, 255, 255, 0.70) 50%,
+    rgba(255, 255, 255, 0.10) 70%,
+    transparent 100%
+  );
+  transform: rotate(20deg);
+  animation: shineSweep 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* No white halo/3D highlight */
+.destination-button::after,
+.location-button::after {
+  display: none;
+}
+
+.destination-button:hover,
+.location-button:hover {
+  transform: translateY(-4px) rotate(-0.5deg) scale(1.045);
+  filter: saturate(1.08) brightness(1.02);
+  border-color: rgba(0, 174, 239, 0.75);
+  box-shadow:
+    0 0 0 7px rgba(0, 174, 239, 0.18),
+    0 16px 30px rgba(38, 34, 98, 0.24);
+  text-decoration: none !important;
+}
+
+.destination-button span,
+.location-button span,
+.location-button-main {
+  position: relative;
+  z-index: 1;
+  color: var(--indigo);
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.12rem;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
+@keyframes shineSweep {
+  0% {
+    left: -85%;
+  }
+  42% {
+    left: 135%;
+  }
+  100% {
+    left: 135%;
+  }
+}
+
+@keyframes softCyanPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 rgba(0, 174, 239, 0),
+      0 10px 22px rgba(38, 34, 98, 0.18);
+  }
+  50% {
+    box-shadow:
+      0 0 0 7px rgba(0, 174, 239, 0.14),
+      0 14px 28px rgba(38, 34, 98, 0.22);
+  }
+}
+
+.manual-result .destination-actions {
+  text-align: center;
 }
   </style>
 </head>
@@ -1283,13 +1289,14 @@ const translations = {
     helpPhoneText: 'If you need assistance, call the Control Center at <a href="tel:3139630171">313-963-0171</a>.',
     websiteButton: "Visit the People Mover Website",
     privacyLink: "Privacy & Data",
+    adaAccessibilityLink: "ADA & Accessibility",
     serviceAlertLabel: "Service Alert",
     nearestStationHeading: "Your Nearest Station",
     entranceTip: "Entrance tip:",
     takeMeThere: "Take Me There",
     rideToLabel: "Ride the People Mover to:",
     walkFromLabel: "Walk from",
-    walkToDestination: "to destination",
+    walkToDestination: "to Destination",
     gettingLocation: "Getting your location...",
     systemClosedMessage: "The system is currently closed. Please check the website for service updates.",
     geoUnsupported: "Geolocation is not supported on this device.",
@@ -1319,6 +1326,7 @@ const translations = {
     helpPhoneText: 'Si necesitas ayuda, llama al Centro de Control al <a href="tel:3139630171">313-963-0171</a>.',
     websiteButton: "Visitar el sitio web del People Mover",
     privacyLink: "Privacidad y datos",
+    adaAccessibilityLink: "ADA y accesibilidad",
     serviceAlertLabel: "Alerta de servicio",
     nearestStationHeading: "Tu estación más cercana",
     entranceTip: "Consejo de entrada:",
@@ -1355,6 +1363,7 @@ const translations = {
     helpPhoneText: 'إذا كنت بحاجة إلى مساعدة، اتصل بمركز التحكم على <a href="tel:3139630171">313-963-0171</a>.',
     websiteButton: "زيارة موقع People Mover",
     privacyLink: "الخصوصية والبيانات",
+    adaAccessibilityLink: "قانون ADA وإمكانية الوصول",
     serviceAlertLabel: "تنبيه الخدمة",
     nearestStationHeading: "أقرب محطة إليك",
     entranceTip: "ملاحظة عن المدخل:",
@@ -1391,6 +1400,7 @@ const translations = {
     helpPhoneText: 'সাহায্যের প্রয়োজন হলে কন্ট্রোল সেন্টারে কল করুন <a href="tel:3139630171">313-963-0171</a> নম্বরে।',
     websiteButton: "People Mover ওয়েবসাইটে যান",
     privacyLink: "গোপনীয়তা ও তথ্য",
+    adaAccessibilityLink: "ADA ও অ্যাক্সেসিবিলিটি",
     serviceAlertLabel: "সার্ভিস অ্যালার্ট",
     nearestStationHeading: "আপনার নিকটতম স্টেশন",
     entranceTip: "প্রবেশ নির্দেশনা:",
@@ -1522,19 +1532,6 @@ function applyTranslations() {
   `;
 }
 
-    function applyClosedStations() {
-    const links = document.querySelectorAll(".manual-links a");
-
-    links.forEach(link => {
-      const stationName = link.textContent.trim();
-      if (systemStatus.closedStations.includes(stationName)) {
-        link.classList.add("closed-station");
-        link.removeAttribute("href");
-        link.removeAttribute("target");
-      }
-    });
-  }
-
  function renderHoursInHelpPanel() {
   const infoPanel = document.querySelector(".info-panel");
 
@@ -1628,7 +1625,7 @@ function handleDestinationChange() {
     ${accessibilityNotice ? `<p class="accessibility-alert"><strong>${t("accessibilityNotice")}</strong> ${accessibilityNotice}</p>` : ""}
     <div class="destination-actions">
       <a class="destination-button" href="#" onclick="openDestinationWalk('${selected.name.replace(/'/g, "\\'")}'); return false;">
-        ${t("walkFromLabel")} <span translate="no">${selected.closestStation}</span> ${t("walkToDestination")}
+        <span>${t("walkFromLabel")} <span translate="no">${selected.closestStation}</span> ${t("walkToDestination")}</span>
       </a>
     </div>
   `;
@@ -1656,7 +1653,7 @@ function showManualStationResult(stationName) {
         destinationLat: ${station.lat},
         destinationLng: ${station.lng}
       }); return false;">
-        ${t("takeMeThere")}
+        <span>${t("takeMeThere")}</span>
       </a>
     </div>
   `;
@@ -1776,7 +1773,6 @@ function openDestinationWalk(destinationName) {
 }
 
    renderServiceBanner();
-applyClosedStations();
 renderHoursInHelpPanel();
 populateDestinationDropdown();
 applyTranslations();
@@ -1808,7 +1804,7 @@ document.getElementById("languageSelect").addEventListener("change", function(ev
   <footer class="site-footer">
   <a href="privacy.html" class="footer-link" id="privacyLink">Privacy &amp; Data</a>
   <span aria-hidden="true"> | </span>
-  <a href="ada.html" class="footer-link">ADA &amp; Accessibility</a>
+  <a href="ada.html" class="footer-link" data-i18n="adaAccessibilityLink">ADA &amp; Accessibility</a>
 </footer>
 </body>
 </html>
