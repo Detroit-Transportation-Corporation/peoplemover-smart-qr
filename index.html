@@ -425,8 +425,25 @@ html[dir="rtl"] .language-wrap {
   font-family: 'Montserrat', Arial, sans-serif;
 }
 
+.manual-links button.station-closed {
+  background: #d9d9d9;
+  color: #666;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.manual-links button.station-closed:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .manual-result {
   scroll-margin-top: 18px;
+}
+
+.manual-links button:disabled {
+  pointer-events: none;
 }
 
 .manual-links button:hover {
@@ -986,19 +1003,19 @@ body.map-choice-open {
   <div id="manualStationResult" class="destination-result manual-result" style="display:none; margin-bottom:16px;"></div>
 
 <div class="manual-links">
-  <button type="button" onclick="showManualStationResult('Times Square')">Times Square</button>
-  <button type="button" onclick="showManualStationResult('Michigan')">Michigan</button>
-  <button type="button" onclick="showManualStationResult('Fort/Cass')">Fort/Cass</button>
-  <button type="button" onclick="showManualStationResult('Huntington Place')">Huntington Place</button>
-  <button type="button" onclick="showManualStationResult('Water Square')">Water Square</button>
-  <button type="button" onclick="showManualStationResult('Financial District')">Financial District</button>
-  <button type="button" onclick="showManualStationResult('Millender Center')">Millender Center</button>
-  <button type="button" onclick="showManualStationResult('Renaissance Center')">Renaissance Center</button>
-  <button type="button" onclick="showManualStationResult('Bricktown')">Bricktown</button>
-  <button type="button" onclick="showManualStationResult('Greektown')">Greektown</button>
-  <button type="button" onclick="showManualStationResult('Cadillac Center')">Cadillac Center</button>
-  <button type="button" onclick="showManualStationResult('Broadway')">Broadway</button>
-  <button type="button" onclick="showManualStationResult('Grand Circus Park')">Grand Circus Park</button>
+  <button type="button" data-station="Times Square" onclick="showManualStationResult('Times Square')">Times Square</button>
+  <button type="button" data-station="Michigan" onclick="showManualStationResult('Michigan')">Michigan</button>
+  <button type="button" data-station="Fort/Cass" onclick="showManualStationResult('Fort/Cass')">Fort/Cass</button>
+  <button type="button" data-station="Huntington Place" onclick="showManualStationResult('Huntington Place')">Huntington Place</button>
+  <button type="button" data-station="Water Square" onclick="showManualStationResult('Water Square')">Water Square</button>
+  <button type="button" data-station="Financial District" onclick="showManualStationResult('Financial District')">Financial District</button>
+  <button type="button" data-station="Millender Center" onclick="showManualStationResult('Millender Center')">Millender Center</button>
+  <button type="button" data-station="Renaissance Center" onclick="showManualStationResult('Renaissance Center')">Renaissance Center</button>
+  <button type="button" data-station="Bricktown" onclick="showManualStationResult('Bricktown')">Bricktown</button>
+  <button type="button" data-station="Greektown" onclick="showManualStationResult('Greektown')">Greektown</button>
+  <button type="button" data-station="Cadillac Center" onclick="showManualStationResult('Cadillac Center')">Cadillac Center</button>
+  <button type="button" data-station="Broadway" onclick="showManualStationResult('Broadway')">Broadway</button>
+  <button type="button" data-station="Grand Circus Park" onclick="showManualStationResult('Grand Circus Park')">Grand Circus Park</button>
 </div>
 </section>
 
@@ -1514,6 +1531,25 @@ function formatHoursTime(timeString) {
     .replace(/AM/g, "ص")
     .replace(/PM/g, "م");
 }
+function applyClosedStationStyles() {
+  const stationButtons = document.querySelectorAll(".manual-links button");
+
+  stationButtons.forEach((button) => {
+    const stationName = button.dataset.station;
+    const isClosed = systemStatus.closedStations.includes(stationName);
+
+    button.classList.toggle("station-closed", isClosed);
+    button.disabled = isClosed;
+
+    if (isClosed) {
+      button.setAttribute("aria-disabled", "true");
+      button.title = "Station closed";
+    } else {
+      button.removeAttribute("aria-disabled");
+      button.removeAttribute("title");
+    }
+  });
+}
 function applyTranslations() {
   document.documentElement.lang = currentLanguage;
   document.documentElement.dir = currentLanguage === "ar" ? "rtl" : "ltr";
@@ -1651,7 +1687,53 @@ function populateDestinationDropdown() {
     select.appendChild(option);
   });
 }
+function getBestOpenStationForDestination(destination) {
+  const manuallyAssignedStation = stations.find(
+    station => station.name === destination.closestStation
+  );
 
+  const manualStationIsOpen =
+    manuallyAssignedStation &&
+    !systemStatus.closedStations.includes(manuallyAssignedStation.name);
+
+  if (manualStationIsOpen) {
+    return {
+      name: destination.closestStation,
+      lat: destination.stationLat,
+      lng: destination.stationLng,
+      placeId: destination.stationPlaceId,
+      destination: destination.closestStation + " People Mover Station, Detroit, MI",
+      wasRerouted: false
+    };
+  }
+
+  const openStations = stations.filter(
+    station => !systemStatus.closedStations.includes(station.name)
+  );
+
+  let nearestOpenStation = null;
+  let minDist = Infinity;
+
+  for (const station of openStations) {
+    const d = distance(
+      destination.destinationLat,
+      destination.destinationLng,
+      station.lat,
+      station.lng
+    );
+
+    if (d < minDist) {
+      minDist = d;
+      nearestOpenStation = station;
+    }
+  }
+
+  return {
+    ...nearestOpenStation,
+    wasRerouted: true,
+    originalStation: destination.closestStation
+  };
+}
 function handleDestinationChange() {
   const select = document.getElementById("destinationSelect");
   const resultBox = document.getElementById("destinationResult");
@@ -1664,17 +1746,38 @@ function handleDestinationChange() {
   }
 
   const selected = destinations.find(destination => destination.name === selectedName);
-  const accessNote = getCurrentStationAccessNote(selected.closestStation);
-  const accessibilityNotice = getCurrentAccessibilityAlert(selected.closestStation);
+  const bestStation = getBestOpenStationForDestination(selected);
+
+  if (!bestStation) {
+    resultBox.innerHTML = `
+      <h3 translate="no">${selected.name}</h3>
+      <p>${t("noOpenStations")}</p>
+    `;
+    resultBox.style.display = "block";
+    return;
+  }
+
+  const accessNote = getCurrentStationAccessNote(bestStation.name);
+  const accessibilityNotice = getCurrentAccessibilityAlert(bestStation.name);
 
   resultBox.innerHTML = `
     <h3 translate="no">${selected.name}</h3>
-    <p>${t("rideToLabel")} <span class="destination-station" translate="no">${selected.closestStation}</span></p>
+
+    ${
+      bestStation.wasRerouted
+        ? `<p class="accessibility-alert"><strong>Service alert:</strong> ${bestStation.originalStation} Station is closed. Use <span translate="no">${bestStation.name}</span> Station instead.</p>`
+        : ""
+    }
+
+    <p>${t("rideToLabel")} <span class="destination-station" translate="no">${bestStation.name}</span></p>
+
     ${accessNote ? `<p class="destination-access-note"><strong>${t("entranceTip")}</strong> ${accessNote}</p>` : ""}
+
     ${accessibilityNotice ? `<p class="accessibility-alert"><strong>${t("accessibilityNotice")}</strong> ${accessibilityNotice}</p>` : ""}
+
     <div class="destination-actions">
       <a class="destination-button" href="#" onclick="openDestinationWalk('${selected.name.replace(/'/g, "\\'")}'); return false;">
-        <span>${t("walkFromLabel")} <span translate="no">${selected.closestStation}</span> ${t("walkToDestination")}</span>
+        <span>${t("walkFromLabel")} <span translate="no">${bestStation.name}</span> ${t("walkToDestination")}</span>
       </a>
     </div>
   `;
@@ -1749,13 +1852,19 @@ function renderNearestStationResult(station) {
 }
 function openDestinationWalk(destinationName) {
   const selected = destinations.find(destination => destination.name === destinationName);
+  const bestStation = getBestOpenStationForDestination(selected);
+
+  if (!bestStation) {
+    alert(t("noOpenStations"));
+    return;
+  }
 
   showMapChoiceOverlay({
     type: "destinationWalk",
-    originText: selected.closestStation + " People Mover Station, Detroit, MI",
-    originPlaceId: selected.stationPlaceId,
-    originLat: selected.stationLat,
-    originLng: selected.stationLng,
+    originText: bestStation.name + " People Mover Station, Detroit, MI",
+    originPlaceId: bestStation.placeId,
+    originLat: bestStation.lat,
+    originLng: bestStation.lng,
     destinationText: selected.name + ", Detroit, MI",
     destinationPlaceId: selected.destinationPlaceId,
     destinationLat: selected.destinationLat,
@@ -1821,10 +1930,11 @@ function openDestinationWalk(destinationName) {
   );
 }
 
-   renderServiceBanner();
-renderHoursInHelpPanel();
-populateDestinationDropdown();
-applyTranslations();
+    renderServiceBanner();
+    renderHoursInHelpPanel();
+    populateDestinationDropdown();
+    applyTranslations();
+    applyClosedStationStyles();
 
 document.getElementById("destinationSelect").addEventListener("change", handleDestinationChange);
 
