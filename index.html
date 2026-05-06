@@ -1055,21 +1055,24 @@ body.map-choice-open {
   </div>
 </div>
   <script>
-    const systemStatus = {
-      systemClosed: false,
-      serviceAlert: {
-      en: "",
-      es: "",
-      ar: "",
-      bn: ""
-    },
-      closedStations: [],
-      regularHours: [
-      { day: "Monday-Friday", time: "6:30 AM - 12:00 AM" },
-      { day: "Saturday", time: "10:00 AM - 12:00 AM" },
-      { day: "Sunday", time: "10:00 AM - 10:00 PM" }
-    ]
-    };
+const systemStatus = { 
+  systemClosed: false,
+
+  serviceAlert: {
+    en: "Times Square Station is closed. Use Michigan Station.",
+    es: "La estación Times Square está cerrada. Use la estación Michigan.",
+    ar: "Times Square Station مغلقة. يُرجى استخدام Michigan Station.",
+    bn: "Times Square Station বন্ধ। Michigan Station ব্যবহার করুন।"
+  },
+
+  closedStations: ["Times Square"],
+
+  regularHours: [
+    { day: "Monday-Friday", time: "6:30 AM - 12:00 AM" },
+    { day: "Saturday", time: "10:00 AM - 12:00 AM" },
+    { day: "Sunday", time: "10:00 AM - 10:00 PM" }
+  ]
+};
 
     const stations = [
       { name: "Times Square", lat: 42.333602, lng: -83.051855, placeId: "ChIJ_yh_IjEtO4gRQu5zDW_F92I", destination: "Times Square People Mover Station, Detroit, MI" },
