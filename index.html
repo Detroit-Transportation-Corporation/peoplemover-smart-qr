@@ -195,6 +195,68 @@ html[dir="rtl"] .destination-access-note {
   border-left: none;
   border-right: 4px solid var(--yellow);
 }
+.station-tip {
+  margin: 12px 0 0;
+  padding: 9px 11px;
+  border-radius: 12px;
+  background: #fdf4d8;
+  border-left: 4px solid var(--yellow);
+  color: var(--indigo);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.35;
+}
+
+.location-station-tip {
+  margin: 12px auto 0;
+  padding: 9px 11px;
+  border-radius: 12px;
+  background: rgba(255, 222, 23, 0.18);
+  border-left: 4px solid var(--yellow);
+  color: var(--white);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.35;
+  text-align: left;
+  max-width: 540px;
+}
+
+html[dir="rtl"] .station-tip,
+html[dir="rtl"] .location-station-tip {
+  text-align: right;
+  border-left: none;
+  border-right: 4px solid var(--yellow);
+}
+
+
+.station-notice {
+  margin: 12px 0 0;
+  padding: 9px 11px;
+  border-radius: 12px;
+  background: #eef8ff;
+  border-left: 4px solid var(--cyan);
+  color: var(--indigo);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.35;
+}
+
+.location-station-notice {
+  margin: 12px auto 0;
+  padding: 9px 11px;
+  border-radius: 12px;
+  background: rgba(0, 174, 239, 0.18);
+  border-left: 4px solid var(--cyan);
+  color: var(--white);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.35;
+  text-align: left;
+  max-width: 540px;
+}
+
+html[dir="rtl"] .station-notice,
+html[dir="rtl"] .location-station-notice {
+  text-align: right;
+  border-left: none;
+  border-right: 4px solid var(--cyan);
+}
 .accessibility-alert {
   margin: 12px 0 0;
   padding: 10px 12px;
@@ -1194,68 +1256,76 @@ const destinations = [
     stationPlaceId: "ChIJ_yh_IjEtO4gRQu5zDW_F92I"
   }
 ];
-const stationAccessNotes = {
+const stationTips = { 
+  // Permanent entrance tips only. Keep these on unless the entrance itself changes.
+  "Water Square": {
+    en: "Entrance is across from Hotel Water Square.",
+    es: "La entrada está frente al Hotel Water Square.",
+    ar: "المدخل مقابل Hotel Water Square.",
+    bn: "প্রবেশপথ Hotel Water Square-এর বিপরীতে।"
+  },
   "Huntington Place": {
-    en: "Station is located inside Huntington Place on the fourth floor.",
-    es: "La estación está ubicada dentro de Huntington Place en el cuarto piso.",
-    ar: "تقع المحطة داخل Huntington Place في الطابق الرابع.",
-    bn: "স্টেশনটি Huntington Place-এর ভেতরে চতুর্থ তলায় অবস্থিত।"
+    en: "Inside Huntington Place, 4th floor.",
+    es: "Dentro de Huntington Place, cuarto piso.",
+    ar: "داخل Huntington Place، الطابق الرابع.",
+    bn: "Huntington Place-এর ভেতরে, চতুর্থ তলা।"
   },
   "Millender Center": {
-    en: "Station is located inside the Millender Center building. Take the elevator to the fifth floor.",
-    es: "La estación está ubicada dentro del edificio Millender Center. Tome el ascensor hasta el quinto piso.",
-    ar: "تقع المحطة داخل مبنى Millender Center. استخدم المصعد إلى الطابق الخامس.",
-    bn: "স্টেশনটি Millender Center ভবনের ভেতরে অবস্থিত। লিফট নিয়ে পঞ্চম তলায় যান।"
+    en: "Inside Millender Center, 5th floor.",
+    es: "Dentro de Millender Center, quinto piso.",
+    ar: "داخل Millender Center، الطابق الخامس.",
+    bn: "Millender Center-এর ভেতরে, পঞ্চম তলা।"
   },
   "Renaissance Center": {
-    en: "Station is located on the second floor. A street-level entrance connects to the station by elevator, and a skybridge connects the lobby to the station.",
-    es: "La estación está ubicada en el segundo piso. Una entrada a nivel de calle conecta con la estación por ascensor, y un puente elevado conecta el vestíbulo con la estación.",
-    ar: "تقع المحطة في الطابق الثاني. يوجد مدخل على مستوى الشارع يتصل بالمحطة عبر مصعد، كما يربط جسر علوي الردهة بالمحطة.",
-    bn: "স্টেশনটি দ্বিতীয় তলায় অবস্থিত। রাস্তার সমতলের একটি প্রবেশপথ লিফটের মাধ্যমে স্টেশনের সাথে যুক্ত, এবং একটি স্কাইব্রিজ লবিকে স্টেশনের সাথে যুক্ত করে।"
+    en: "2nd floor, use street elevator or skybridge.",
+    es: "Segundo piso, use el ascensor de calle o el puente elevado.",
+    ar: "الطابق الثاني، استخدم مصعد الشارع أو الجسر العلوي.",
+    bn: "দ্বিতীয় তলা, রাস্তার লিফট বা স্কাইব্রিজ ব্যবহার করুন।"
   },
   "Greektown": {
-    en: "Station lobby is located inside Hollywood Casino at Greektown. Take the elevator or escalator to the second floor.",
-    es: "El vestíbulo de la estación está ubicado dentro de Hollywood Casino at Greektown. Tome el ascensor o la escalera mecánica hasta el segundo piso.",
-    ar: "تقع ردهة المحطة داخل Hollywood Casino at Greektown. استخدم المصعد أو السلم المتحرك إلى الطابق الثاني.",
-    bn: "স্টেশনের লবি Hollywood Casino at Greektown-এর ভেতরে অবস্থিত। লিফট বা এসকেলেটর নিয়ে দ্বিতীয় তলায় যান।"
+    en: "Lobby in casino via Beaubien, station on 2nd floor.",
+    es: "Vestíbulo del casino por Beaubien, estación en el segundo piso.",
+    ar: "الردهة داخل الكازينو عبر Beaubien، والمحطة في الطابق الثاني.",
+    bn: "Beaubien দিয়ে ক্যাসিনো লবি, স্টেশন দ্বিতীয় তলায়।"
   }
 };
-const stationAccessibilityAlerts = {
-  "Grand Circus Park": {
-    en: "Accessible entrance is available by elevator only.",
-    es: "La entrada accesible está disponible únicamente por ascensor.",
-    ar: "يتوفر المدخل الميسر عبر المصعد فقط.",
-    bn: "অ্যাক্সেসযোগ্য প্রবেশপথ শুধুমাত্র লিফটের মাধ্যমে উপলব্ধ।"
-  },
+
+const stationNotices = {
+  // Temporary outage notices. Change active to true/false as conditions change.
   "Michigan": {
-    en: "Escalator out of service. Please use the elevator.",
+    active: true,
+    en: "Escalator down. Use elevator.",
     es: "Escalera mecánica fuera de servicio. Use el ascensor.",
-    ar: "السلم المتحرك خارج الخدمة. يرجى استخدام المصعد.",
-    bn: "এসকেলেটর অচল। অনুগ্রহ করে লিফট ব্যবহার করুন।"
+    ar: "السلم المتحرك خارج الخدمة. استخدم المصعد.",
+    bn: "এসকেলেটর বন্ধ। লিফট ব্যবহার করুন।"
   },
   "Water Square": {
-    en: "Elevator out of service. Please use the stairs or escalator if available.",
-    es: "Ascensor fuera de servicio. Use las escaleras o la escalera mecánica si está disponible.",
-    ar: "المصعد خارج الخدمة. يرجى استخدام الدرج أو السلم المتحرك إذا كان متاحًا.",
-    bn: "লিফট অচল। সিঁড়ি বা এসকেলেটর উপলব্ধ থাকলে ব্যবহার করুন।"
+    active: false,
+    en: "Elevator down. Use stairs.",
+    es: "Ascensor fuera de servicio. Use las escaleras.",
+    ar: "المصعد خارج الخدمة. استخدم الدرج.",
+    bn: "লিফট বন্ধ। সিঁড়ি ব্যবহার করুন।"
   },
   "Renaissance Center": {
-    en: "Escalator out of service. Please use the elevator.",
+    active: true,
+    en: "Escalator down. Use elevator.",
     es: "Escalera mecánica fuera de servicio. Use el ascensor.",
-    ar: "السلم المتحرك خارج الخدمة. يرجى استخدام المصعد.",
-    bn: "এসকেলেটর অচল। অনুগ্রহ করে লিফট ব্যবহার করুন।"
+    ar: "السلم المتحرك خارج الخدمة. استخدم المصعد.",
+    bn: "এসকেলেটর বন্ধ। লিফট ব্যবহার করুন।"
   },
   "Broadway": {
-    en: "Escalator out of service. Please use the elevator.",
+    active: true,
+    en: "Escalator down. Use elevator.",
     es: "Escalera mecánica fuera de servicio. Use el ascensor.",
-    ar: "السلم المتحرك خارج الخدمة. يرجى استخدام المصعد.",
-    bn: "এসকেলেটর অচল। অনুগ্রহ করে লিফট ব্যবহার করুন।"
+    ar: "السلم المتحرك خارج الخدمة. استخدم المصعد.",
+    bn: "এসকেলেটর বন্ধ। লিফট ব্যবহার করুন।"
   },
   "Greektown": {
-    en: "Elevator access is inside Hollywood Casino at Greektown near the Beaubien entrance. To access the first floor through the casino, call Security Command at 313-309-5350. Please note that anyone entering the casino must be at least 21 years of age.",
-    es: "El acceso al ascensor está dentro de Hollywood Casino at Greektown, cerca de la entrada de Beaubien. Para acceder al primer piso a través del casino, llame a Security Command al 313-309-5350. Tenga en cuenta que toda persona que ingrese al casino debe tener al menos 21 años.",
-    ar: "يقع الوصول إلى المصعد داخل Hollywood Casino at Greektown بالقرب من مدخل Beaubien. للوصول إلى الطابق الأول عبر الكازينو، اتصل بـ Security Command على الرقم 313-309-5350. يرجى ملاحظة أن عمر أي شخص يدخل الكازينو يجب أن يكون 21 عامًا على الأقل.",
-    bn: "লিফট প্রবেশপথ Hollywood Casino at Greektown-এর ভেতরে, Beaubien প্রবেশদ্বারের কাছে অবস্থিত। ক্যাসিনোর ভেতর দিয়ে প্রথম তলায় যেতে Security Command-এ 313-309-5350 নম্বরে কল করুন। দয়া করে মনে রাখবেন, ক্যাসিনোতে প্রবেশকারীর বয়স কমপক্ষে ২১ বছর হতে হবে।"
+    active: true,
+    en: "Escalator down. Use elevator.",
+    es: "Escalera mecánica fuera de servicio. Use el ascensor.",
+    ar: "السلم المتحرك خارج الخدمة. استخدم المصعد.",
+    bn: "এসকেলেটর বন্ধ। লিফট ব্যবহার করুন।"
   }
 };
 let currentLanguage = "en";
@@ -1353,7 +1423,7 @@ const translations = {
     adaAccessibilityLink: "ADA & Accessibility",
     serviceAlertLabel: "Service Alert",
     nearestStationHeading: "Your Nearest Station",
-    entranceTip: "Entrance tip:",
+    entranceTip: "Tip:",
     takeMeThere: "Take Me There",
     rideToLabel: "Ride the People Mover to:",
     walkFromLabel: "Walk from",
@@ -1371,7 +1441,7 @@ const translations = {
     mondayFriday: "Monday-Friday",
     saturday: "Saturday",
     sunday: "Sunday",
-    accessibilityNotice: "Accessibility notice:",
+    accessibilityNotice: "Notice:",
   },
   es: {
     heroTitle: "Encuentra la estación más cercana",
@@ -1390,7 +1460,7 @@ const translations = {
     adaAccessibilityLink: "ADA y accesibilidad",
     serviceAlertLabel: "Alerta de servicio",
     nearestStationHeading: "Tu estación más cercana",
-    entranceTip: "Consejo de entrada:",
+    entranceTip: "Consejo:",
     takeMeThere: "Llévame allí",
     rideToLabel: "Toma el People Mover hasta:",
     walkFromLabel: "Camina desde",
@@ -1408,7 +1478,7 @@ const translations = {
     mondayFriday: "Lunes-viernes",
     saturday: "Sábado",
     sunday: "Domingo",
-    accessibilityNotice: "Aviso de accesibilidad:",
+    accessibilityNotice: "Aviso:",
   },
   ar: {
     heroTitle: "اعثر على أقرب محطة",
@@ -1427,7 +1497,7 @@ const translations = {
     adaAccessibilityLink: "قانون ADA وإمكانية الوصول",
     serviceAlertLabel: "تنبيه الخدمة",
     nearestStationHeading: "أقرب محطة إليك",
-    entranceTip: "ملاحظة عن المدخل:",
+    entranceTip: "نصيحة:",
     takeMeThere: "خذني إلى هناك",
     rideToLabel: "استقل People Mover إلى:",
     walkFromLabel: "امشِ من",
@@ -1445,7 +1515,7 @@ const translations = {
     mondayFriday: "الاثنين-الجمعة",
     saturday: "السبت",
     sunday: "الأحد",
-    accessibilityNotice: "ملاحظة إمكانية الوصول:",
+    accessibilityNotice: "تنبيه:",
   },
   bn: {
     heroTitle: "সবচেয়ে কাছের স্টেশন খুঁজুন",
@@ -1464,7 +1534,7 @@ const translations = {
     adaAccessibilityLink: "ADA ও অ্যাক্সেসিবিলিটি",
     serviceAlertLabel: "সার্ভিস অ্যালার্ট",
     nearestStationHeading: "আপনার নিকটতম স্টেশন",
-    entranceTip: "প্রবেশ নির্দেশনা:",
+    entranceTip: "টিপ:",
     takeMeThere: "আমাকে সেখানে নিয়ে চলুন",
     rideToLabel: "People Mover-এ যান:",
     walkFromLabel: "হাঁটুন",
@@ -1482,7 +1552,7 @@ const translations = {
     mondayFriday: "সোমবার-শুক্রবার",
     saturday: "শনিবার",
     sunday: "রবিবার",
-    accessibilityNotice: "অ্যাক্সেসিবিলিটি নোটিশ:",
+    accessibilityNotice: "নোটিশ:",
   }
 };
 
@@ -1504,18 +1574,32 @@ function getCurrentServiceAlert() {
     ""
   );
 }
-function getCurrentStationAccessNote(stationName) {
-  const note = stationAccessNotes[stationName];
-  if (!note) return "";
-  if (typeof note === "string") return note;
-  return note[currentLanguage] || note.en || "";
+function getLocalizedStationText(item) {
+  if (!item) return "";
+  if (typeof item === "string") return item;
+  return item[currentLanguage] || item.en || "";
 }
 
-function getCurrentAccessibilityAlert(stationName) {
-  const notice = stationAccessibilityAlerts?.[stationName];
+function getCurrentStationTip(stationName) {
+  return getLocalizedStationText(stationTips[stationName]);
+}
+
+function getCurrentStationNotice(stationName) {
+  const notice = stationNotices[stationName];
+  if (!notice || notice.active !== true) return "";
+  return getLocalizedStationText(notice);
+}
+
+function renderStationTip(stationName, className = "station-tip") {
+  const tip = getCurrentStationTip(stationName);
+  if (!tip) return "";
+  return `<p class="${className}"><strong>${t("entranceTip")}</strong> ${tip}</p>`;
+}
+
+function renderStationNotice(stationName, className = "station-notice") {
+  const notice = getCurrentStationNotice(stationName);
   if (!notice) return "";
-  if (typeof notice === "string") return notice;
-  return notice[currentLanguage] || notice.en || "";
+  return `<p class="${className}"><strong>${t("accessibilityNotice")}</strong> ${notice}</p>`;
 }
 function formatHoursTime(timeString) {
   if (currentLanguage !== "ar") {
@@ -1752,8 +1836,8 @@ function handleDestinationChange() {
     return;
   }
 
-  const accessNote = getCurrentStationAccessNote(bestStation.name);
-  const accessibilityNotice = getCurrentAccessibilityAlert(bestStation.name);
+  const tipHtml = renderStationTip(bestStation.name);
+  const noticeHtml = renderStationNotice(bestStation.name);
 
   resultBox.innerHTML = `
     <h3 translate="no">${selected.name}</h3>
@@ -1766,9 +1850,8 @@ function handleDestinationChange() {
 
     <p>${t("rideToLabel")} <span class="destination-station" translate="no">${bestStation.name}</span></p>
 
-    ${accessNote ? `<p class="destination-access-note"><strong>${t("entranceTip")}</strong> ${accessNote}</p>` : ""}
-
-    ${accessibilityNotice ? `<p class="accessibility-alert"><strong>${t("accessibilityNotice")}</strong> ${accessibilityNotice}</p>` : ""}
+    ${tipHtml}
+    ${noticeHtml}
 
     <div class="destination-actions">
       <a class="destination-button" href="#" onclick="openDestinationWalk('${selected.name.replace(/'/g, "\\'")}'); return false;">
@@ -1785,13 +1868,13 @@ function handleDestinationChange() {
 function showManualStationResult(stationName) {
   const resultBox = document.getElementById("manualStationResult");
   const station = stations.find(item => item.name === stationName);
-  const accessNote = getCurrentStationAccessNote(stationName);
-  const accessibilityNotice = getCurrentAccessibilityAlert(stationName);
+  const tipHtml = renderStationTip(stationName);
+  const noticeHtml = renderStationNotice(stationName);
 
   resultBox.innerHTML = `
     <h3 translate="no">${stationName}</h3>
-    ${accessNote ? `<p class="destination-access-note"><strong>${t("entranceTip")}</strong> ${accessNote}</p>` : ""}
-    ${accessibilityNotice ? `<p class="accessibility-alert"><strong>${t("accessibilityNotice")}</strong> ${accessibilityNotice}</p>` : ""}
+    ${tipHtml}
+    ${noticeHtml}
     <div class="destination-actions">
       <a class="destination-button" href="#" onclick="showMapChoiceOverlay({
         type: 'station',
@@ -1817,16 +1900,16 @@ function showManualStationResult(stationName) {
 }
 function renderNearestStationResult(station) {
   const resultBox = document.getElementById("locationResult");
-  const accessNote = getCurrentStationAccessNote(station.name);
-  const accessibilityNotice = getCurrentAccessibilityAlert(station.name);
+  const tipHtml = renderStationTip(station.name, "location-station-tip");
+  const noticeHtml = renderStationNotice(station.name, "location-station-notice");
 
   resultBox.innerHTML = `
     <h3>${t("nearestStationHeading")}</h3>
     <div class="location-station-wrap">
       <div class="location-station-badge" translate="no">${station.name}</div>
     </div>
-    ${accessNote ? `<p class="location-access-note"><strong>${t("entranceTip")}</strong> ${accessNote}</p>` : ""}
-    ${accessibilityNotice ? `<p class="location-accessibility-alert"><strong>${t("accessibilityNotice")}</strong> ${accessibilityNotice}</p>` : ""}
+    ${tipHtml}
+    ${noticeHtml}
     <div class="location-actions">
       <a class="location-button" href="#" onclick="showMapChoiceOverlay({
         type: 'station',
