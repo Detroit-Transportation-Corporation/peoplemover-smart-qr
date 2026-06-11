@@ -800,6 +800,61 @@ html[dir="rtl"] .hours-card {
 body.map-choice-open {
   overflow: hidden;
 }
+.save-tool-card {
+  text-align: left;
+}
+
+.save-tool-instructions {
+  display: none;
+  margin-top: 16px;
+  padding: 14px 14px;
+  border-radius: 16px;
+  background: #f6f7fb;
+  border: 1px solid #e4e7f0;
+  color: var(--text-dark);
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.45;
+}
+
+.save-tool-instructions.is-visible {
+  display: block;
+}
+
+.save-tool-instructions h4 {
+  margin: 0 0 8px;
+  color: var(--indigo);
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.save-tool-instructions ol {
+  margin: 8px 0 0;
+  padding-left: 22px;
+}
+
+.save-tool-instructions li {
+  margin-bottom: 6px;
+}
+
+.install-app-button {
+  border: none;
+  width: auto;
+}
+
+.install-app-button:hover {
+  text-decoration: none !important;
+}
+
+html[dir="rtl"] .save-tool-card,
+html[dir="rtl"] .save-tool-instructions {
+  text-align: right;
+}
+
+html[dir="rtl"] .save-tool-instructions ol {
+  padding-left: 0;
+  padding-right: 22px;
+}
 .destination-button,
 .location-button {
   position: relative;
@@ -1129,6 +1184,30 @@ html[dir="rtl"] .install-card {
         Cancel
       </button>
     </div>
+    <div id="saveToolOverlay" class="map-choice-overlay" aria-hidden="true">
+  <div class="map-choice-card save-tool-card" role="dialog" aria-modal="true" aria-labelledby="saveToolTitle">
+    <h3 id="saveToolTitle">Choose your phone type</h3>
+    <p id="saveToolDescription">
+      We’ll show you how to create a Home Screen shortcut.
+    </p>
+
+    <div class="map-choice-actions">
+      <button type="button" class="map-choice-button apple" onclick="showSaveToolInstructions('iphone')">
+        iPhone
+      </button>
+
+      <button type="button" class="map-choice-button google" onclick="showSaveToolInstructions('android')">
+        Android
+      </button>
+
+      <button type="button" class="map-choice-button cancel" onclick="closeSaveToolOverlay()">
+        Cancel
+      </button>
+    </div>
+
+    <div id="saveToolInstructions" class="save-tool-instructions"></div>
+  </div>
+</div>
   </div>
 </div>
   <script>
@@ -1435,8 +1514,8 @@ const translations = {
     sunday: "Sunday",
     accessibilityNotice: "Notice:",
     installAppHeading: "Save This Tool",
-    installAppDescription: "Bookmark this page for faster access next time you\'re downtown.",
-    installAppButton: "Bookmark This Page",
+    installAppDescription: "Create a Home Screen shortcut for faster access next time you're downtown.",
+    installAppButton: "Save This Tool",
   },
   es: {
     heroTitle: "Encuentra la estación más cercana",
@@ -1475,8 +1554,8 @@ const translations = {
     sunday: "Domingo",
     accessibilityNotice: "Aviso:",
     installAppHeading: "Guardar esta herramienta",
-    installAppDescription: "Guarda esta página para acceder más rápido la próxima vez que estés en el centro.",
-    installAppButton: "Guardar esta página",
+    installAppDescription: "Crea un acceso directo en la pantalla de inicio para usarla más rápido la próxima vez que estés en el centro.",
+    installAppButton: "Guardar esta herramienta",
   },
   ar: {
     heroTitle: "اعثر على أقرب محطة",
@@ -1514,9 +1593,9 @@ const translations = {
     saturday: "السبت",
     sunday: "الأحد",
     accessibilityNotice: "تنبيه:",
-    installAppHeading: "احفظ هذه الأداة",
-    installAppDescription: "احفظ هذه الصفحة للوصول إليها بسرعة في المرة القادمة التي تكون فيها وسط المدينة.",
-    installAppButton: "احفظ هذه الصفحة",
+   installAppHeading: "احفظ هذه الأداة",
+    installAppDescription: "أنشئ اختصارًا على الشاشة الرئيسية للوصول إليها بسرعة في المرة القادمة.",
+    installAppButton: "احفظ هذه الأداة",
   },
   bn: {
     heroTitle: "সবচেয়ে কাছের স্টেশন খুঁজুন",
@@ -1555,8 +1634,8 @@ const translations = {
     sunday: "রবিবার",
     accessibilityNotice: "নোটিশ:",
     installAppHeading: "এই টুলটি সংরক্ষণ করুন",
-    installAppDescription: "পরেরবার ডাউনটাউনে দ্রুত ব্যবহার করার জন্য এই পেজটি বুকমার্ক করুন।",
-    installAppButton: "এই পেজটি বুকমার্ক করুন",
+    installAppDescription: "পরেরবার দ্রুত ব্যবহার করার জন্য হোম স্ক্রিনে একটি শর্টকাট তৈরি করুন।",
+    installAppButton: "এই টুলটি সংরক্ষণ করুন",
   }
 };
 
@@ -1735,16 +1814,16 @@ function renderHoursInHelpPanel() {
     </div>
 
     <div class="hours-card install-card">
-      <h3>${t("installAppHeading")}</h3>
-      <p class="transit-app-note">
-        ${t("installAppDescription")}
-      </p>
-      <div class="info-actions">
-        <button type="button" id="installAppButton" class="website-button install-app-button">
-          ${t("installAppButton")}
-        </button>
-      </div>
-    </div>
+  <h3>${t("installAppHeading")}</h3>
+  <p class="transit-app-note">
+    ${t("installAppDescription")}
+  </p>
+  <div class="info-actions">
+    <button type="button" id="installAppButton" class="website-button install-app-button">
+      ${t("installAppButton")}
+    </button>
+  </div>
+</div>
 
     <div class="hours-card transit-card">
       <div class="transit-card-content">
@@ -2056,8 +2135,111 @@ document.getElementById("languageSelect").addEventListener("change", function(ev
 });
 let deferredInstallPrompt = null;
 
-function isIosDevice() {
-  return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+function isInStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+}
+
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+});
+
+function setupInstallButton() {
+  const installButton = document.getElementById("installAppButton");
+  if (!installButton) return;
+
+  if (isInStandaloneMode()) {
+    installButton.style.display = "none";
+    return;
+  }
+
+  installButton.style.display = "inline-block";
+  installButton.onclick = openSaveToolOverlay;
+}
+
+function openSaveToolOverlay() {
+  const overlay = document.getElementById("saveToolOverlay");
+  const instructions = document.getElementById("saveToolInstructions");
+
+  if (instructions) {
+    instructions.innerHTML = "";
+    instructions.classList.remove("is-visible");
+  }
+
+  overlay.classList.add("is-open");
+  overlay.setAttribute("aria-hidden", "false");
+  document.body.classList.add("map-choice-open");
+}
+
+function closeSaveToolOverlay() {
+  const overlay = document.getElementById("saveToolOverlay");
+  const instructions = document.getElementById("saveToolInstructions");
+
+  overlay.classList.remove("is-open");
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("map-choice-open");
+
+  if (instructions) {
+    instructions.innerHTML = "";
+    instructions.classList.remove("is-visible");
+  }
+}
+
+function showSaveToolInstructions(phoneType) {
+  const instructions = document.getElementById("saveToolInstructions");
+  if (!instructions) return;
+
+  if (phoneType === "iphone") {
+    instructions.innerHTML = `
+      <h4>iPhone</h4>
+      <p>Use Safari to create a Home Screen shortcut.</p>
+      <ol>
+        <li>Open this page in Safari.</li>
+        <li>Tap the Share button.</li>
+        <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+        <li>Tap <strong>Add</strong>.</li>
+      </ol>
+    `;
+  }
+
+  if (phoneType === "android") {
+    instructions.innerHTML = `
+      <h4>Android</h4>
+      <p>Create a Home Screen shortcut from Chrome.</p>
+      ${
+        deferredInstallPrompt
+          ? `<button type="button" class="website-button" onclick="runAndroidInstallPrompt()">Install Shortcut</button>`
+          : `
+            <ol>
+              <li>Open this page in Chrome.</li>
+              <li>Tap the three-dot menu.</li>
+              <li>Tap <strong>Add to Home screen</strong> or <strong>Install app</strong>.</li>
+              <li>Tap <strong>Add</strong> or follow the on-screen instructions.</li>
+            </ol>
+          `
+      }
+    `;
+  }
+
+  instructions.classList.add("is-visible");
+}
+
+async function runAndroidInstallPrompt() {
+  if (!deferredInstallPrompt) {
+    showSaveToolInstructions("android");
+    return;
+  }
+
+  deferredInstallPrompt.prompt();
+
+  try {
+    await deferredInstallPrompt.userChoice;
+  } catch (error) {
+    console.log(error);
+  }
+
+  deferredInstallPrompt = null;
 }
 
 function isInStandaloneMode() {
