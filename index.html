@@ -40,6 +40,49 @@
       min-height: 100vh;
     }
 
+.save-tool-banner {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, var(--indigo), var(--purple));
+  color: var(--white);
+  text-decoration: none;
+  text-align: center;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 800;
+  font-size: 0.98rem;
+  line-height: 1.35;
+  padding: 12px 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  position: relative;
+  z-index: 10;
+}
+
+.save-tool-banner:hover,
+.save-tool-banner:focus {
+  color: var(--white);
+  text-decoration: underline;
+  background: linear-gradient(135deg, var(--blue), var(--magenta));
+}
+
+.save-tool-banner:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: -3px;
+}
+
+.save-tool-banner-icon {
+  margin-right: 6px;
+}
+
+html[dir="rtl"] .save-tool-banner-icon {
+  margin-right: 0;
+  margin-left: 6px;
+}
+
+body.is-standalone .save-tool-banner {
+  display: none;
+}
+
+
     .page {
       max-width: 760px;
       margin: 0 auto;
@@ -1038,32 +1081,13 @@ html[dir="rtl"] .save-tool-instructions ol {
   transform: translateY(-1px);
   box-shadow: 0 12px 24px rgba(38,34,98,0.28);
 }
-.install-card {
-  text-align: left;
-}
-
-.install-card h3 {
-  margin: 0 0 10px;
-  color: var(--indigo);
-  font-size: 1rem;
-  font-weight: 800;
-}
-
-.install-app-button {
-  border: none;
-  width: auto;
-}
-
-.install-app-button:hover {
-  text-decoration: none !important;
-}
-
-html[dir="rtl"] .install-card {
-  text-align: right;
-}
   </style>
 </head>
 <body>
+  <a href="#" id="saveToolBanner" class="save-tool-banner">
+    <span class="save-tool-banner-icon" aria-hidden="true">⬇</span>
+    <span data-i18n="saveToolBannerText">Save this tool to your Home Screen for easy access.</span>
+  </a>
   <div class="page">
     <div id="serviceBanner"></div>
 
@@ -1184,7 +1208,10 @@ html[dir="rtl"] .install-card {
         Cancel
       </button>
     </div>
-    <div id="saveToolOverlay" class="map-choice-overlay" aria-hidden="true">
+  </div>
+</div>
+
+<div id="saveToolOverlay" class="map-choice-overlay" aria-hidden="true">
   <div class="map-choice-card save-tool-card" role="dialog" aria-modal="true" aria-labelledby="saveToolTitle">
     <h3 id="saveToolTitle">Choose your phone type</h3>
     <p id="saveToolDescription">
@@ -1206,8 +1233,6 @@ html[dir="rtl"] .install-card {
     </div>
 
     <div id="saveToolInstructions" class="save-tool-instructions"></div>
-  </div>
-</div>
   </div>
 </div>
   <script>
@@ -1516,6 +1541,7 @@ const translations = {
     installAppHeading: "Save This Tool",
     installAppDescription: "Create a Home Screen shortcut for faster access next time you're downtown.",
     installAppButton: "Save This Tool",
+    saveToolBannerText: "Save this tool to your Home Screen for easy access.",
   },
   es: {
     heroTitle: "Encuentra la estación más cercana",
@@ -1556,6 +1582,7 @@ const translations = {
     installAppHeading: "Guardar esta herramienta",
     installAppDescription: "Crea un acceso directo en la pantalla de inicio para usarla más rápido la próxima vez que estés en el centro.",
     installAppButton: "Guardar esta herramienta",
+    saveToolBannerText: "Guarda esta herramienta en la pantalla de inicio para acceder fácilmente.",
   },
   ar: {
     heroTitle: "اعثر على أقرب محطة",
@@ -1596,6 +1623,7 @@ const translations = {
    installAppHeading: "احفظ هذه الأداة",
     installAppDescription: "أنشئ اختصارًا على الشاشة الرئيسية للوصول إليها بسرعة في المرة القادمة.",
     installAppButton: "احفظ هذه الأداة",
+    saveToolBannerText: "احفظ هذه الأداة على الشاشة الرئيسية للوصول إليها بسهولة.",
   },
   bn: {
     heroTitle: "সবচেয়ে কাছের স্টেশন খুঁজুন",
@@ -1636,6 +1664,7 @@ const translations = {
     installAppHeading: "এই টুলটি সংরক্ষণ করুন",
     installAppDescription: "পরেরবার দ্রুত ব্যবহার করার জন্য হোম স্ক্রিনে একটি শর্টকাট তৈরি করুন।",
     installAppButton: "এই টুলটি সংরক্ষণ করুন",
+    saveToolBannerText: "সহজে ব্যবহারের জন্য এই টুলটি আপনার হোম স্ক্রিনে সংরক্ষণ করুন.",
   }
 };
 
@@ -1813,17 +1842,6 @@ function renderHoursInHelpPanel() {
       </p>
     </div>
 
-    <div class="hours-card install-card">
-  <h3>${t("installAppHeading")}</h3>
-  <p class="transit-app-note">
-    ${t("installAppDescription")}
-  </p>
-  <div class="info-actions">
-    <button type="button" id="installAppButton" class="website-button install-app-button">
-      ${t("installAppButton")}
-    </button>
-  </div>
-</div>
 
     <div class="hours-card transit-card">
       <div class="transit-card-content">
@@ -1847,7 +1865,6 @@ function renderHoursInHelpPanel() {
   `;
 
   infoPanel.insertAdjacentHTML("beforeend", hoursHtml);
-  setupInstallButton();
 }
 
 function populateDestinationDropdown() {
@@ -2146,21 +2163,27 @@ window.addEventListener("beforeinstallprompt", event => {
 });
 
 function setupInstallButton() {
-  const installButton = document.getElementById("installAppButton");
-  if (!installButton) return;
+  const saveToolBanner = document.getElementById("saveToolBanner");
+  if (!saveToolBanner) return;
 
   if (isInStandaloneMode()) {
-    installButton.style.display = "none";
+    document.body.classList.add("is-standalone");
+    saveToolBanner.style.display = "none";
     return;
   }
 
-  installButton.style.display = "inline-block";
-  installButton.onclick = openSaveToolOverlay;
+  saveToolBanner.style.display = "block";
+  saveToolBanner.onclick = event => {
+    event.preventDefault();
+    openSaveToolOverlay();
+  };
 }
 
 function openSaveToolOverlay() {
   const overlay = document.getElementById("saveToolOverlay");
   const instructions = document.getElementById("saveToolInstructions");
+
+  if (!overlay) return;
 
   if (instructions) {
     instructions.innerHTML = "";
@@ -2175,6 +2198,8 @@ function openSaveToolOverlay() {
 function closeSaveToolOverlay() {
   const overlay = document.getElementById("saveToolOverlay");
   const instructions = document.getElementById("saveToolInstructions");
+
+  if (!overlay) return;
 
   overlay.classList.remove("is-open");
   overlay.setAttribute("aria-hidden", "true");
@@ -2240,47 +2265,6 @@ async function runAndroidInstallPrompt() {
   }
 
   deferredInstallPrompt = null;
-}
-
-function isInStandaloneMode() {
-  return window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true;
-}
-
-window.addEventListener("beforeinstallprompt", event => {
-  event.preventDefault();
-  deferredInstallPrompt = event;
-
-  const installButton = document.getElementById("installAppButton");
-  if (installButton && !isInStandaloneMode()) {
-    installButton.style.display = "inline-flex";
-  }
-});
-
-function setupInstallButton() {
-  const installButton = document.getElementById("installAppButton");
-  if (!installButton) return;
-
-  if (isInStandaloneMode()) {
-    installButton.style.display = "none";
-    return;
-  }
-
-  installButton.onclick = async () => {
-    if (deferredInstallPrompt) {
-      deferredInstallPrompt.prompt();
-      const choice = await deferredInstallPrompt.userChoice;
-      deferredInstallPrompt = null;
-      return;
-    }
-
-    if (isIosDevice()) {
-      alert("To save this page on your iPhone: tap the Share button, scroll down, choose Add to Home Screen, then tap Add.");
-      return;
-    }
-
-    alert("To bookmark this page, open your browser menu and choose Add to Home Screen, Install app, or Bookmark.");
-  };
 }
 
 if ("serviceWorker" in navigator) {
