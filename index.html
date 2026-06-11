@@ -7,6 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="theme-color" content="#262262">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="DPM Wayfinding">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
     :root {
       --magenta: #EC008C;
@@ -977,6 +983,29 @@ body.map-choice-open {
   transform: translateY(-1px);
   box-shadow: 0 12px 24px rgba(38,34,98,0.28);
 }
+.install-card {
+  text-align: left;
+}
+
+.install-card h3 {
+  margin: 0 0 10px;
+  color: var(--indigo);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.install-app-button {
+  border: none;
+  width: auto;
+}
+
+.install-app-button:hover {
+  text-decoration: none !important;
+}
+
+html[dir="rtl"] .install-card {
+  text-align: right;
+}
   </style>
 </head>
 <body>
@@ -1405,6 +1434,9 @@ const translations = {
     saturday: "Saturday",
     sunday: "Sunday",
     accessibilityNotice: "Notice:",
+    installAppHeading: "Save This Tool",
+    installAppDescription: "Bookmark this page for faster access next time you\'re downtown.",
+    installAppButton: "Bookmark This Page",
   },
   es: {
     heroTitle: "Encuentra la estación más cercana",
@@ -1442,6 +1474,9 @@ const translations = {
     saturday: "Sábado",
     sunday: "Domingo",
     accessibilityNotice: "Aviso:",
+    installAppHeading: "Guardar esta herramienta",
+    installAppDescription: "Guarda esta página para acceder más rápido la próxima vez que estés en el centro.",
+    installAppButton: "Guardar esta página",
   },
   ar: {
     heroTitle: "اعثر على أقرب محطة",
@@ -1479,6 +1514,9 @@ const translations = {
     saturday: "السبت",
     sunday: "الأحد",
     accessibilityNotice: "تنبيه:",
+    installAppHeading: "احفظ هذه الأداة",
+    installAppDescription: "احفظ هذه الصفحة للوصول إليها بسرعة في المرة القادمة التي تكون فيها وسط المدينة.",
+    installAppButton: "احفظ هذه الصفحة",
   },
   bn: {
     heroTitle: "সবচেয়ে কাছের স্টেশন খুঁজুন",
@@ -1516,6 +1554,9 @@ const translations = {
     saturday: "শনিবার",
     sunday: "রবিবার",
     accessibilityNotice: "নোটিশ:",
+    installAppHeading: "এই টুলটি সংরক্ষণ করুন",
+    installAppDescription: "পরেরবার ডাউনটাউনে দ্রুত ব্যবহার করার জন্য এই পেজটি বুকমার্ক করুন।",
+    installAppButton: "এই পেজটি বুকমার্ক করুন",
   }
 };
 
@@ -1659,14 +1700,14 @@ function applyTranslations() {
   `;
 }
 
- function renderHoursInHelpPanel() {
+function renderHoursInHelpPanel() {
   const infoPanel = document.querySelector(".info-panel");
 
   const translatedHours = [
-  { day: t("mondayFriday"), time: formatHoursTime("6:30 AM - 12:00 AM") },
-  { day: t("saturday"), time: formatHoursTime("10:00 AM - 12:00 AM") },
-  { day: t("sunday"), time: formatHoursTime("10:00 AM - 10:00 PM") }
-];
+    { day: t("mondayFriday"), time: formatHoursTime("6:30 AM - 12:00 AM") },
+    { day: t("saturday"), time: formatHoursTime("10:00 AM - 12:00 AM") },
+    { day: t("sunday"), time: formatHoursTime("10:00 AM - 10:00 PM") }
+  ];
 
   const existingHoursCards = infoPanel.querySelectorAll(".hours-card");
   existingHoursCards.forEach(card => card.remove());
@@ -1675,13 +1716,13 @@ function applyTranslations() {
     <div class="hours-card">
       <h3>${t("hoursHeading")}</h3>
       <div class="hours-grid">
-  ${translatedHours.map(item => `
-    <div class="hours-row">
-      <span class="hours-day">${item.day}:</span>
-      <span class="hours-time">${item.time}</span>
-    </div>
-  `).join("")}
-</div>
+        ${translatedHours.map(item => `
+          <div class="hours-row">
+            <span class="hours-day">${item.day}:</span>
+            <span class="hours-time">${item.time}</span>
+          </div>
+        `).join("")}
+      </div>
     </div>
 
     <div class="hours-card map-card">
@@ -1691,6 +1732,18 @@ function applyTranslations() {
           ${t("mapPdfLink")}
         </a>
       </p>
+    </div>
+
+    <div class="hours-card install-card">
+      <h3>${t("installAppHeading")}</h3>
+      <p class="transit-app-note">
+        ${t("installAppDescription")}
+      </p>
+      <div class="info-actions">
+        <button type="button" id="installAppButton" class="website-button install-app-button">
+          ${t("installAppButton")}
+        </button>
+      </div>
     </div>
 
     <div class="hours-card transit-card">
@@ -1715,6 +1768,7 @@ function applyTranslations() {
   `;
 
   infoPanel.insertAdjacentHTML("beforeend", hoursHtml);
+  setupInstallButton();
 }
 
 function populateDestinationDropdown() {
@@ -2000,6 +2054,60 @@ document.getElementById("languageSelect").addEventListener("change", function(ev
     status.textContent = "";
   }
 });
+let deferredInstallPrompt = null;
+
+function isIosDevice() {
+  return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+}
+
+function isInStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+}
+
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+
+  const installButton = document.getElementById("installAppButton");
+  if (installButton && !isInStandaloneMode()) {
+    installButton.style.display = "inline-flex";
+  }
+});
+
+function setupInstallButton() {
+  const installButton = document.getElementById("installAppButton");
+  if (!installButton) return;
+
+  if (isInStandaloneMode()) {
+    installButton.style.display = "none";
+    return;
+  }
+
+  installButton.onclick = async () => {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      const choice = await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      return;
+    }
+
+    if (isIosDevice()) {
+      alert("To save this page on your iPhone: tap the Share button, scroll down, choose Add to Home Screen, then tap Add.");
+      return;
+    }
+
+    alert("To bookmark this page, open your browser menu and choose Add to Home Screen, Install app, or Bookmark.");
+  };
+}
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", setupInstallButton);
   </script>
   <footer class="site-footer">
   <a href="privacy.html" class="footer-link" id="privacyLink">Privacy &amp; Data</a>
