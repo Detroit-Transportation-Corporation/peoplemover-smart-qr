@@ -816,6 +816,16 @@ html[dir="rtl"] .hours-card {
   box-shadow: 0 8px 18px rgba(38, 34, 98, 0.10);
 }
 
+.map-choice-button.google {
+  background: linear-gradient(135deg, var(--blue), var(--purple)) !important;
+  color: var(--white) !important;
+  border-color: transparent !important;
+}
+
+.map-choice-button.google:hover {
+  filter: brightness(1.05);
+}
+
 .map-choice-button.google:hover,
 .map-choice-button.apple:hover {
   background: #f7f7fb;
@@ -1081,6 +1091,68 @@ html[dir="rtl"] .save-tool-instructions ol {
   transform: translateY(-1px);
   box-shadow: 0 12px 24px rgba(38,34,98,0.28);
 }
+.station-tip,
+.station-notice {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.station-tip {
+  background: #fdf4d8;
+  border-left: 4px solid var(--yellow);
+  color: var(--indigo);
+}
+
+.station-notice {
+  background: #fdeaea;
+  border-left: 4px solid #c62828;
+  color: #7a1212;
+}
+
+.station-tip strong,
+.station-notice strong {
+  font-weight: 800;
+}
+
+/* Versions shown on the dark location card */
+.location-station-tip,
+.location-station-notice {
+  margin: 10px auto 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  max-width: 540px;
+  text-align: left;
+  font-family: 'Roboto Condensed', Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+.location-station-tip {
+  background: rgba(255, 222, 23, 0.20);
+  border-left: 4px solid var(--yellow);
+}
+
+.location-station-notice {
+  background: rgba(198, 40, 40, 0.30);
+  border-left: 4px solid #ff6b6b;
+}
+
+html[dir="rtl"] .station-tip,
+html[dir="rtl"] .station-notice,
+html[dir="rtl"] .location-station-tip,
+html[dir="rtl"] .location-station-notice {
+  text-align: right;
+  border-left: none;
+  border-right: 4px solid var(--yellow);
+}
+
+html[dir="rtl"] .station-notice,
+html[dir="rtl"] .location-station-notice {
+  border-right-color: #c62828;
+}
   </style>
 </head>
 <body>
@@ -1197,7 +1269,7 @@ html[dir="rtl"] .save-tool-instructions ol {
 
     <div class="map-choice-actions">
       <button type="button" class="map-choice-button google" onclick="openSelectedMap('google')">
-        Google Maps
+        Google Maps (Recommended)
       </button>
 
       <button type="button" class="map-choice-button apple" onclick="openSelectedMap('apple')">
@@ -1207,7 +1279,7 @@ html[dir="rtl"] .save-tool-instructions ol {
       <button type="button" class="map-choice-button cancel" onclick="closeMapChoiceOverlay()">
         Cancel
       </button>
-    </div>
+</div>
   </div>
 </div>
 
@@ -1455,8 +1527,7 @@ function buildAppleMapsUrl(request) {
   if (request.type === "station") {
     return (
       "https://maps.apple.com/?" +
-      "saddr=" +
-      "&daddr=" + encodeURIComponent(request.destinationLat + "," + request.destinationLng) +
+      "daddr=" + encodeURIComponent(request.destinationText) +
       "&dirflg=w"
     );
   }
@@ -1464,8 +1535,8 @@ function buildAppleMapsUrl(request) {
   if (request.type === "destinationWalk") {
     return (
       "https://maps.apple.com/?" +
-      "saddr=" + encodeURIComponent(request.originLat + "," + request.originLng) +
-      "&daddr=" + encodeURIComponent(request.destinationLat + "," + request.destinationLng) +
+      "saddr=" + encodeURIComponent(request.originText) +
+      "&daddr=" + encodeURIComponent(request.destinationText) +
       "&dirflg=w"
     );
   }
@@ -1499,8 +1570,9 @@ function openSelectedMap(provider) {
       : buildGoogleMapsUrl(pendingMapRequest);
 
   closeMapChoiceOverlay();
-  window.location.href = url;
+  window.open(url, "_blank", "noopener");
 }
+
 const translations = {
   en: {
     heroTitle: "Find the Nearest Station",
@@ -1542,6 +1614,8 @@ const translations = {
     installAppDescription: "Create a Home Screen shortcut for faster access next time you're downtown.",
     installAppButton: "Save This Tool",
     saveToolBannerText: "Save this tool to your Home Screen for easy access.",
+    locationDeniedHelp: "Location is turned off for this site. Turn it on in your phone's Settings,  or pick a station from the list below.",
+    locationTimeout: "Couldn't find your location in time. Try again, or pick a station from the list below.",
   },
   es: {
     heroTitle: "Encuentra la estación más cercana",
@@ -1583,6 +1657,8 @@ const translations = {
     installAppDescription: "Crea un acceso directo en la pantalla de inicio para usarla más rápido la próxima vez que estés en el centro.",
     installAppButton: "Guardar esta herramienta",
     saveToolBannerText: "Guarda esta herramienta en la pantalla de inicio para acceder fácilmente.",
+    locationDeniedHelp: "La ubicación está desactivada para este sitio. Actívala en la Configuración de tu teléfono o elige una estación de la lista de abajo.",
+    locationTimeout: "No se pudo encontrar tu ubicación a tiempo. Inténtalo de nuevo o elige una estación de la lista de abajo.",
   },
   ar: {
     heroTitle: "اعثر على أقرب محطة",
@@ -1620,10 +1696,12 @@ const translations = {
     saturday: "السبت",
     sunday: "الأحد",
     accessibilityNotice: "تنبيه:",
-   installAppHeading: "احفظ هذه الأداة",
+    installAppHeading: "احفظ هذه الأداة",
     installAppDescription: "أنشئ اختصارًا على الشاشة الرئيسية للوصول إليها بسرعة في المرة القادمة.",
     installAppButton: "احفظ هذه الأداة",
     saveToolBannerText: "احفظ هذه الأداة على الشاشة الرئيسية للوصول إليها بسهولة.",
+    locationDeniedHelp: "خدمة الموقع معطّلة لهذا الموقع. فعّلها من إعدادات هاتفك، أو اختر محطة من القائمة أدناه.",
+    locationTimeout: "تعذّر تحديد موقعك في الوقت المناسب. حاول مرة أخرى، أو اختر محطة من القائمة أدناه.",
   },
   bn: {
     heroTitle: "সবচেয়ে কাছের স্টেশন খুঁজুন",
@@ -1665,6 +1743,8 @@ const translations = {
     installAppDescription: "পরেরবার দ্রুত ব্যবহার করার জন্য হোম স্ক্রিনে একটি শর্টকাট তৈরি করুন।",
     installAppButton: "এই টুলটি সংরক্ষণ করুন",
     saveToolBannerText: "সহজে ব্যবহারের জন্য এই টুলটি আপনার হোম স্ক্রিনে সংরক্ষণ করুন.",
+    locationDeniedHelp: "এই সাইটের জন্য লোকেশন বন্ধ আছে। আপনার ফোনের সেটিংসে এটি চালু করুন, অথবা নিচের তালিকা থেকে একটি স্টেশন বেছে নিন।",
+    locationTimeout: "সময়মতো আপনার অবস্থান খুঁজে পাওয়া যায়নি। আবার চেষ্টা করুন, অথবা নিচের তালিকা থেকে একটি স্টেশন বেছে নিন।",
   }
 };
 
@@ -2110,9 +2190,17 @@ function openDestinationWalk(destinationName) {
       renderNearestStationResult(nearest);
     },
     function(error) {
-      status.textContent = t("locationDenied");
-      console.log(error);
-    },
+      let message = t("locationDenied");
+
+      if (error.code === error.PERMISSION_DENIED) {
+        message = t("locationDeniedHelp");
+      } else if (error.code === error.TIMEOUT) {
+        message = t("locationTimeout");
+      }
+
+  status.textContent = message;
+  console.log(error);
+},
     {
       enableHighAccuracy: true,
       timeout: 10000,

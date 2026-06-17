@@ -1,4 +1,4 @@
-const CACHE_NAME = "dpm-wayfinding-v2";
+const CACHE_NAME = "dpm-wayfinding-v3";
 
 const ASSETS_TO_CACHE = [
   "./",
@@ -32,17 +32,22 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+  const request = event.request;
+
+  // Only handle same-origin GET requests; let everything else (maps, tel:, etc.) pass through
+  if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) {
+    return;
+  }
+
   event.respondWith(
-    fetch(event.request)
+    fetch(request)
       .then(response => {
         const responseClone = response.clone();
-
         caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseClone);
+          cache.put(request, responseClone);
         });
-
         return response;
       })
-      .catch(() => caches.match(event.request))
+      .catch(() => caches.match(request))
   );
 });
